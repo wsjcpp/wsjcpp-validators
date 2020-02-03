@@ -1,0 +1,21 @@
+language: cpp
+
+branches:
+  only:
+    - master
+
+dist: bionic
+
+addons:
+  apt:
+    packages:
+    - cmake
+    - make
+    - g++
+    - pkg-config
+
+# Build steps
+script:
+  - cd unit-tests.wsjcpp
+  - ./build_simple.sh
+  - ./unit-tests
