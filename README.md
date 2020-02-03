@@ -1,4 +1,7 @@
 # wsjcpp-validators
+
+[![Build Status](https://api.travis-ci.org/wsjcpp/wsjcpp-validators.svg?branch=master)](https://travis-ci.org/wsjcpp/wsjcpp-validators) [![Github Stars](https://img.shields.io/github/stars/wsjcpp/wsjcpp-validators.svg?label=github%20%E2%98%85)](https://github.com/wsjcpp/wsjcpp-validators/stargazers) [![Github Stars](https://img.shields.io/github/contributors/wsjcpp/wsjcpp-validators.svg)](https://github.com/wsjcpp/wsjcpp-validators/) [![Github Forks](https://img.shields.io/github/forks/wsjcpp/wsjcpp-validators.svg?label=github%20forks)](https://github.com/wsjcpp/wsjcpp-validators/network/members)
+
 Classes for data validation
 
 ## Integrate to your project
