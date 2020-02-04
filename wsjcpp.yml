@@ -46,3 +46,5 @@ unit-tests:
       description: "Test email validator"
     - name: "ValidatorUuid"
       description: "Test uuid validator"
+    - name: "ValidatorStringList"
+      description: "Test validator from a string list"
