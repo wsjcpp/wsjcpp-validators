@@ -4,6 +4,14 @@
 
 Classes for data validation
 
+## Completed classes
+
+- `new WJSCppValidatorStringRegexpBase("testre", "^[a-zA-Z]+$")` - validate value by regular expression
+- `new WJSCppValidatorStringListBase("lang", {"en", "de", "ru"})` - validate value from a list
+- `new WJSCppValidatorEmail()` - validate format email
+- `new WJSCppValidatorUUID()` - validate format uuid
+- `new WJSCppValidatorStringLength(1,100)` - validate min length and max length
+
 ## Integrate to your project
 
 Just include this files:
@@ -20,6 +28,7 @@ $ wsjcpp install https://github.com/wsjcpp/wsjcpp-validators:master
 ## Example usage 
 
 ``` cpp
+
 WJSCppValidatorUUID *pValidatorUUID = new WJSCppValidatorUUID();
 std::string sError = "";
 if (!pValidatorUUID->isValid("abcdef01-ABCD-EF23-1000-000000000001", sError)) {
@@ -29,7 +38,7 @@ if (!pValidatorUUID->isValid("abcdef01-ABCD-EF23-1000-000000000001", sError)) {
 
 ## Example for yuor implementations
 
-```
+``` cpp
 class WJSCppValidatorUUID : public WJSCppValidatorStringRegexpBase {
     public:
         WJSCppValidatorUUID() 

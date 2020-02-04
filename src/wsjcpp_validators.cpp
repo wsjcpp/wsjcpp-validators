@@ -34,7 +34,7 @@ WJSCppValidatorStringRegexpBase::WJSCppValidatorStringRegexpBase(const std::stri
 
 bool WJSCppValidatorStringRegexpBase::isValid(const std::string &sValue, std::string &sError) {
     if (!std::regex_match(sValue, m_rxValidator)) {
-        sError = "Value must have " + getTypeName();
+        sError = getTypeName() + " - Value must match regular expression " + m_sValidator;
         return false;
     }
     return true;
