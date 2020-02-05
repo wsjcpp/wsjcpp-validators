@@ -14,6 +14,7 @@ Classes for data validation
 - `new WSJCppValidatorJWT()` - validate format of JWT
 - `new WSJCppValidatorDate()` - validate format date like 'YYYY-MM-DD'
 - `new WSJCppValidatorTimeH24()` - validate format date like 'HH:mm:ss' (24 hours)
+- `new WSJCppValidatorDateTime()` - validate format date like 'YYYY-MM-DD\THH:mm:ss'
 - `new WSJCppValidatorBase64()` - validate format of base64
 - `new WSJCppValidatorNumber()` - validate format of number
 - `new WSJCppValidatorHex()` - validate hex value
@@ -22,6 +23,8 @@ Classes for data validation
 
 Just include this files:
 
+- src/wsjcpp_core/wsjcpp_core.h
+- src/wsjcpp_core/wsjcpp_core.cpp
 - src/wsjcpp_validators.h
 - src/wsjcpp_validators.cpp
 

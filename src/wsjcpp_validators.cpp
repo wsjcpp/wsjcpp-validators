@@ -1,5 +1,6 @@
 #include "wsjcpp_validators.h"
-
+#include <wsjcpp_core.h>
+#include <arpa/inet.h>
 
 bool WSJCppValidators::isValidDate(const std::string &sValue, std::string &sError) {
     int nSize = sValue.size();
@@ -63,7 +64,7 @@ bool WSJCppValidators::isValidDate(const std::string &sValue, std::string &sErro
 bool WSJCppValidators::isValidTimeH24(const std::string &sValue, std::string &sError) {
     int nSize = sValue.size();
     if (nSize != 8) {
-        sError = "Invalid size format expected length 8 ";
+        sError = "Invalid size format expected length 8";
         return false;
     }
 
@@ -107,6 +108,199 @@ bool WSJCppValidators::isValidTimeH24(const std::string &sValue, std::string &sE
         return false;
     }
     return true;
+}
+
+// ----------------------------------------------------------------------
+
+bool WSJCppValidators::isValidDomainName(const std::string &sValue, std::string &sError) {
+    std::vector<std::string> vSubDomains;
+    std::string sTmpDomain = "";
+    int nAddressLen = sValue.size();
+    char cPrev = 0;
+    for (int i = 0; i < nAddressLen; i++) { 
+        char c = sValue[i];
+        if (i == 0 && c == '.') {
+            sError = "Domain Name '" + sValue + "' could not be start on '.'";
+            return false;
+        }
+        if (c == '.') {
+            if (sTmpDomain != "") {
+                vSubDomains.push_back(sTmpDomain);
+                sTmpDomain = "";
+                continue;
+            } else {
+                sError = "Domain Name '" + sValue + "' could not contains '..'";
+                return false;
+            }
+        }
+        if (
+            (c >= 'A' && c <= 'Z') 
+            || (c >= 'a' && c <= 'z')
+            || (c >= '0' && c <= '9')
+            || c == '-'
+        ) {
+            sTmpDomain += c;
+            if (cPrev == '-' && c == cPrev) {
+                sError = "Domain Name '" + sValue + "' could not two times in a row '";
+                sError += c;
+                sError += c;
+                sError += "'";
+                return false;
+            }
+            cPrev = c;
+        } else {
+            sError = "Domain Name '" + sValue + "' contains unexpected '";
+            sError += c;
+            sError += "'";
+            return false;
+        }
+        
+    }
+
+    if (sTmpDomain != "") {
+        vSubDomains.push_back(sTmpDomain);
+        sTmpDomain = "";
+    } else {
+        sError = "Domain Name '" + sValue + "' could not contains '.' on end";
+        return false;
+    }
+
+    if (vSubDomains.size() < 2) {
+        sError = "Domain Name '" + sValue + "' must contains least one dot";
+        return false;
+    }
+    std::string sRootDomain = vSubDomains[vSubDomains.size()-1];
+    if (sRootDomain.size() < 2) {
+        sError = "Domain Name '" + sValue + "' has wrong root domain '" + sRootDomain + "' length must be more then 1";
+        return false;
+    }
+    for (int i = 0; i < sRootDomain.size(); i++) {
+        char c = sRootDomain[i];
+        if (
+            (c < 'A' || c > 'Z') 
+            && (c < 'a' || c > 'z')
+        ) {
+            sError = "Domain Name '" + sValue + "' has wrong root domain '" + sRootDomain + "' must have only chars";
+            return false;
+        }
+    }
+
+    for (int i = 0; i < vSubDomains.size(); i++) {
+        std::string sDomain = vSubDomains[i];
+        char c = sDomain[0];
+        if (
+            (c < 'A' || c > 'Z') 
+            && (c < 'a' || c > 'z')
+            && (c < '0' || c > '9')
+        ) {
+            sError = "Subdomain '" + sDomain + "' could not start on '";
+            sError += c;
+            sError += "'";
+            return false;
+        }
+        c = sDomain[sDomain.size()-1];
+        if (
+            (c < 'A' || c > 'Z') 
+            && (c < 'a' || c > 'z')
+            && (c < '0' || c > '9')
+        ) {
+            sError = "Subdomain '" + sDomain + "' could not end on '";
+            sError += c;
+            sError += "'";
+            return false;
+        }
+    }
+    return true;
+}
+
+// ----------------------------------------------------------------------
+
+bool WSJCppValidators::isValidBase64(const std::string &sValue, std::string &sError) {
+    int nSize = sValue.size();
+    if (nSize % 4 != 0) {
+        sError = "Value size must be a multiple of 4";
+        return false;
+    }
+    bool bLastChar = false;
+    for (int i = 0; i < nSize; i++) {
+        char c = sValue[i];
+        if (!bLastChar && c == '=') {
+            bLastChar = true;
+            continue;
+        }
+        if (bLastChar && c == '=') {
+            continue;
+        }
+
+        if (bLastChar && c != '=') {
+            sError = "Unexpected char '";
+            sError += c;
+            sError += "' after '=' in " + std::to_string(i) + " position";
+            return false;
+        }
+
+        if (
+            (c < 'A' || c > 'Z')
+            && (c < 'a' || c > 'z')
+            && (c < '0' || c > '9')
+            && c != '+'
+            && c != '/'
+        ) {
+            sError = "Unexpected char '";
+            sError += c;
+            sError += "' in " + std::to_string(i) + " position";
+            return false;
+        }
+    }
+    return true;
+}
+
+// ----------------------------------------------------------------------
+
+bool WSJCppValidators::isValidIPv4(const std::string &sValue, std::string &sError) {
+    int n = 0;
+    std::string s[4] = {"", "", "", ""};
+    for (int i = 0; i < sValue.length(); i++) {
+        char c = sValue[i];
+        if (n > 3) {
+            sError = "Groups number must be less than 5 (like '0.0.0.0')";
+            return false;
+        }
+        if (c >= '0' && c <= '9') {
+            s[n] += c;
+        } else if (c == '.') {
+            n++;
+        } else {
+            sError = "Unexpected character '";
+            sError += c;
+            sError += "'";
+            return false;
+        }
+    }
+    for (int i = 0; i < 4; i++) {
+        if (s[i].length() > 3) {
+            sError = "Value '" + s[i] + "' could not contains more than 3 digits in a row";
+            return false;
+        }
+        int p = std::stoi(s[i]);
+        if (p > 255 || p < 0) {
+            sError = "Value '" + std::to_string(p) + "' must be 0..255";
+            return false;
+        }
+    }
+    return true;
+}
+
+// ----------------------------------------------------------------------
+
+bool WSJCppValidators::isValidIPv6(const std::string &sValue, std::string &sError) {
+    // TODO redesign without arpa
+    unsigned char buf[sizeof(struct in6_addr)];
+    bool isValid = inet_pton(AF_INET6, sValue.c_str(), buf);
+    if (!isValid) {
+        sError = "Format of ipv6 invalid";
+    }
+    return isValid;
 }
 
 // ----------------------------------------------------------------------
@@ -260,6 +454,156 @@ bool WSJCppValidatorTimeH24::isValid(const std::string &sValue, std::string &sEr
     return WSJCppValidators::isValidTimeH24(sValue, sError);
 }
 
+// ----------------------------------------------------------------------
+// WSJCppValidatorDateTime
+
+WSJCppValidatorDateTime::WSJCppValidatorDateTime()
+: WSJCppValidatorStringBase("datetime") {
+    TAG = "WSJCppValidatorDateTime";
+}
+
+// ----------------------------------------------------------------------
+
+bool WSJCppValidatorDateTime::isValid(const std::string &sValue, std::string &sError) {
+    int nSize = sValue.size();
+    // '2020-01-01T00:00:00'
+    if (nSize != 19) {
+        sError = "Invalid size format expected length 19";
+        return false;
+    }
+    std::string sDate = sValue.substr(0,10);
+    if (!WSJCppValidators::isValidDate(sDate, sError)) {
+        return false;
+    }
+    if (sValue[10] != 'T') {
+        sError = "Expected 'T' in 10 position, but got '";
+        sError += sValue[10];
+        sError += "'";
+        return false;
+    }
+    std::string sTime = sValue.substr(11,8);
+    if (!WSJCppValidators::isValidTimeH24(sTime, sError)) {
+        return false;
+    }
+    return true;
+}
+
+// ----------------------------------------------------------------------
+// WSJCppValidatorURL
+
+/*
+WSJCppValidatorURL::WSJCppValidatorURL() 
+: WSJCppValidatorStringBase("url") {
+    TAG = "WSJCppValidatorURL";
+    m_rxLikeIPv4Format = std::regex("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(:\\d{1,5}){0,1}$");
+}
+
+// ----------------------------------------------------------------------
+
+bool WSJCppValidatorURL::isValid(const std::string &sValue, std::string &sError) {
+    if (sValue.size() == 0) {
+        sError = "Value is empty";
+        return false;
+    }
+    if (sValue.find(".") == std::string::npos) {
+        sError = "Must contain at least one dot";
+        return false;
+    }
+
+    int nPosProtocol = sValue.find("://");
+    if (nPosProtocol == std::string::npos) {
+        sError = "Value must contains '://'";
+        return false;
+    }
+    std::string sProtocol = sValue.substr(0, nPosProtocol);
+    if (
+        sProtocol != "http" 
+        && sProtocol != "https" 
+        && sProtocol != "ws"
+        && sProtocol != "wss"
+        && sProtocol != "ftp"
+    ) {
+        sError = "Unexpected protocol '" + sProtocol + "'";
+        return false;
+    }
+
+    int nStartPos = nPosProtocol + 3;
+    std::string sAuthorityAddressPath = "";
+    for (int i = nStartPos; i < sValue.size(); i++) {
+        char c = sValue[i];
+        if (c == '?') {
+            break;
+        }
+        sAuthorityAddressPath += c;
+    }
+    std::string sQuery = sValue.substr(nPosProtocol + 3 + sAuthorityAddressPath.size());
+    std::string sAddressAndPath = sAuthorityAddressPath;
+
+    int nPosAuthority = sAuthorityAddressPath.find("@");
+    std::string sAuthority = "";
+    if (nPosAuthority != std::string::npos) {
+        sAuthority = sAuthorityAddressPath.substr(0,nPosAuthority);
+        sAddressAndPath = sAuthorityAddressPath.substr(nPosAuthority + 1);
+    }
+    if (sAuthority != "") {
+        sError = "TODO check username and password sAuthority= [" + sAuthority + "]";
+        // -.~_!$&'()*+,;=:%40:80%2f::::::
+        return false;
+    }
+    std::string sAddress = sAddressAndPath;
+    std::string sPath = "";
+    int nPosAddress = sAddressAndPath.find("/");
+    if (nPosAddress != std::string::npos) {
+        sAddress = sAddressAndPath.substr(0, nPosAddress);
+        sPath = sAddressAndPath.substr(nPosAddress);
+    }
+
+    if (sAddress.size() == 0) {
+        sError = "Address could not be empty";
+        return false;
+    }
+
+    if (std::regex_match(sAddress, m_rxLikeIPv4Format)) {
+        int nPosPort = sAddress.find(":");
+        std::string sPort = "";
+        if (sAddress.find(":") != std::string::npos) {
+            sPort = sAddress.substr(nPosPort + 1);
+            sAddress = sAddress.substr(0, nPosPort);
+        }
+        if (!WSJCppValidators::isValidIPv4(sAddress, sError)) {
+            return false;
+        }
+        if (sPort != "") {
+            int nPort = std::atoi(sPort.c_str());
+            if (nPort < 1 || nPort > 65535) {
+                sError = "Port '" + std::to_string(nPort) + "' must be more then 0 and less then 65536";
+                return false;
+            }
+        }
+    } else {
+        if (!WSJCppValidators::isValidDomainName(sAddress, sError)) {
+            return false;
+        }
+    }
+
+    if ((sPath == "" || sPath == "/") && sQuery == "") {
+        return true;
+    }
+
+    if (sPath != "") {
+        sError = "TODO check path sPath=" + sPath;
+        return false;
+    }
+
+    if (sQuery != "") {
+        sError = "TODO check query sQuery=[" + sQuery + "]";
+        return false;
+    }
+
+    sError = "sAddressAndPath=[" + sAddressAndPath + "], , sAddress=[" + sAddress + "]";
+    return true;
+}
+*/
 
 // ----------------------------------------------------------------------
 // WSJCppValidatorBase64
@@ -272,45 +616,8 @@ WSJCppValidatorBase64::WSJCppValidatorBase64()
 // ----------------------------------------------------------------------
 
 bool WSJCppValidatorBase64::isValid(const std::string &sValue, std::string &sError) {
-    int nSize = sValue.size();
-    if (nSize % 4 != 0) {
-        sError = "Value size must be a multiple of 4";
-        return false;
-    }
-    bool bLastChar = false;
-    for (int i = 0; i < nSize; i++) {
-        char c = sValue[i];
-        if (!bLastChar && c == '=') {
-            bLastChar = true;
-            continue;
-        }
-        if (bLastChar && c == '=') {
-            continue;
-        }
-
-        if (bLastChar && c != '=') {
-            sError = "Unexpected char '";
-            sError += c;
-            sError += "' after '=' in " + std::to_string(i) + " position";
-            return false;
-        }
-
-        if (
-            (c < 'A' || c > 'Z')
-            && (c < 'a' || c > 'z')
-            && (c < '0' || c > '9')
-            && c != '+'
-            && c != '/'
-        ) {
-            sError = "Unexpected char '";
-            sError += c;
-            sError += "' in " + std::to_string(i) + " position";
-            return false;
-        }
-    }
-    return true;
+    return WSJCppValidators::isValidBase64(sValue, sError);
 }
-
 
 // ----------------------------------------------------------------------
 // WSJCppValidatorNumber
