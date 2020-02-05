@@ -19,12 +19,19 @@ Classes for data validation
 - `new WSJCppValidatorNumber()` - validate format of number
 - `new WSJCppValidatorHex()` - validate hex value
 
+## Completed static functions
+
+- `WSJCppValidators::isValidDate(const std::string &sValue, std::string &sError)`
+- `WSJCppValidators::isValidTimeH24(const std::string &sValue, std::string &sError)`
+- `WSJCppValidators::isValidDomainName(const std::string &sValue, std::string &sError)`
+- `WSJCppValidators::isValidBase64(const std::string &sValue, std::string &sError)`
+- `WSJCppValidators::isValidIPv4(const std::string &sValue, std::string &sError)`
+- `WSJCppValidators::isValidIPv6(const std::string &sValue, std::string &sError)`
+
 ## Integrate to your project
 
 Just include this files:
 
-- src/wsjcpp_core/wsjcpp_core.h
-- src/wsjcpp_core/wsjcpp_core.cpp
 - src/wsjcpp_validators.h
 - src/wsjcpp_validators.cpp
 

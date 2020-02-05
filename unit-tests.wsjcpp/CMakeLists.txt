@@ -22,7 +22,7 @@ list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests.cpp")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests.h")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests_main.cpp")
 
-# wsjcpp-validators:v0.0.1
+# wsjcpp-validators:v0.0.3
 list (APPEND WSJCPP_INCLUDE_DIRS "../src")
 list (APPEND WSJCPP_SOURCES "../src/wsjcpp_validators.h")
 list (APPEND WSJCPP_SOURCES "../src/wsjcpp_validators.cpp")
@@ -47,14 +47,16 @@ list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_reg_ex
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_reg_exp.cpp")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_base64.h")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_base64.cpp")
-# list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_url.h")
-# list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_url.cpp")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_number.h")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_number.cpp")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_hex.h")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_hex.cpp")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_string_length.h")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_string_length.cpp")
+list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v4.h")
+list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v4.cpp")
+list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v6.h")
+list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v6.cpp")
 
 # required-libraries
 list (APPEND WSJCPP_LIBRARIES "-lpthread")

@@ -1,5 +1,4 @@
 #include "wsjcpp_validators.h"
-#include <wsjcpp_core.h>
 #include <arpa/inet.h>
 
 bool WSJCppValidators::isValidDate(const std::string &sValue, std::string &sError) {
