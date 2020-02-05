@@ -1,23 +1,23 @@
-#include "unit_test_validator_email.h"
+#include "unit_test_validator_hex.h"
 #include <vector>
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorEmail)
+REGISTRY_UNIT_TEST(UnitTestValidatorHex)
 
-UnitTestValidatorEmail::UnitTestValidatorEmail()
-    : WSJCppUnitTestBase("UnitTestValidatorEmail") {
+UnitTestValidatorHex::UnitTestValidatorHex()
+    : WSJCppUnitTestBase("UnitTestValidatorHex") {
 }
 
 // ---------------------------------------------------------------------
 
-void UnitTestValidatorEmail::init() {
+void UnitTestValidatorHex::init() {
     // nothing
 }
 
 // ---------------------------------------------------------------------
 
-bool UnitTestValidatorEmail::run() {
+bool UnitTestValidatorHex::run() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -29,13 +29,11 @@ bool UnitTestValidatorEmail::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorEmail *pValidator = new WSJCppValidatorEmail();
+    WSJCppValidatorHex *pValidator = new WSJCppValidatorHex();
     tests.push_back(new LTestVld("some", false));
-    tests.push_back(new LTestVld("some@some", false));
-    tests.push_back(new LTestVld("some@some.rr", true));
-    tests.push_back(new LTestVld("01@some.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.c", false));
+    tests.push_back(new LTestVld("2020", true));
+    tests.push_back(new LTestVld("abcdef0123456789ABCDEF", true));
+    tests.push_back(new LTestVld("0123J", false));
 
     for (unsigned int i = 0; i < tests.size(); i++) {
         std::string sValue = tests[i]->m_sValue;
@@ -44,7 +42,6 @@ bool UnitTestValidatorEmail::run() {
         bool bGotResult = pValidator->isValid(sValue, sError);
         compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-
     return bTestSuccess;
 }
 

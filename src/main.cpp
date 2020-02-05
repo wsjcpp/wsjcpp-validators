@@ -31,16 +31,22 @@ int main(int argc, char* argv[]) {
     }
     std::string sArg1(argv[1]);
 
-    std::vector<WJSCppValidatorStringBase *> vValidators;
-    vValidators.push_back(new WJSCppValidatorStringLength(5, 100));
-    vValidators.push_back(new WJSCppValidatorStringLength(1, 5));
-    vValidators.push_back(new WJSCppValidatorEmail());
-    vValidators.push_back(new WJSCppValidatorUUID());
-    vValidators.push_back(new WJSCppValidatorStringListBase("lang", {"en", "de", "ru"}));
-    vValidators.push_back(new WJSCppValidatorStringRegexpBase("testre", "^[a-zA-Z]+$"));
+    std::vector<WSJCppValidatorStringBase *> vValidators;
+    vValidators.push_back(new WSJCppValidatorStringLength(5, 100));
+    vValidators.push_back(new WSJCppValidatorStringLength(1, 5));
+    vValidators.push_back(new WSJCppValidatorEmail());
+    vValidators.push_back(new WSJCppValidatorUUID());
+    vValidators.push_back(new WSJCppValidatorStringListBase("lang", {"en", "de", "ru"}));
+    vValidators.push_back(new WSJCppValidatorStringRegexpBase("testre", "^[a-zA-Z]+$"));
+    vValidators.push_back(new WSJCppValidatorJWT());
+    vValidators.push_back(new WSJCppValidatorDate());
+    vValidators.push_back(new WSJCppValidatorTimeH24());
+    vValidators.push_back(new WSJCppValidatorBase64());
+    vValidators.push_back(new WSJCppValidatorNumber());
+    vValidators.push_back(new WSJCppValidatorHex());
 
     for (int i = 0; i < vValidators.size(); i++) {
-        WJSCppValidatorStringBase *pValidator = vValidators[i];
+        WSJCppValidatorStringBase *pValidator = vValidators[i];
         std::string sError;
         if (pValidator->isValid(sArg1, sError)) {
             WSJCppLog::ok(TAG, "ok -> [" + pValidator->getTypeName() + "]: '" + sArg1 + "'");

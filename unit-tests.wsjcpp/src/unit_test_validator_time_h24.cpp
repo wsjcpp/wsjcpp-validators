@@ -1,23 +1,23 @@
-#include "unit_test_validator_email.h"
+#include "unit_test_validator_time_h24.h"
 #include <vector>
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorEmail)
+REGISTRY_UNIT_TEST(UnitTestValidatorTimeH24)
 
-UnitTestValidatorEmail::UnitTestValidatorEmail()
-    : WSJCppUnitTestBase("UnitTestValidatorEmail") {
+UnitTestValidatorTimeH24::UnitTestValidatorTimeH24()
+    : WSJCppUnitTestBase("UnitTestValidatorTimeH24") {
 }
 
 // ---------------------------------------------------------------------
 
-void UnitTestValidatorEmail::init() {
+void UnitTestValidatorTimeH24::init() {
     // nothing
 }
 
 // ---------------------------------------------------------------------
 
-bool UnitTestValidatorEmail::run() {
+bool UnitTestValidatorTimeH24::run() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -29,13 +29,17 @@ bool UnitTestValidatorEmail::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorEmail *pValidator = new WSJCppValidatorEmail();
+    WSJCppValidatorTimeH24 *pValidator = new WSJCppValidatorTimeH24();
     tests.push_back(new LTestVld("some", false));
-    tests.push_back(new LTestVld("some@some", false));
-    tests.push_back(new LTestVld("some@some.rr", true));
-    tests.push_back(new LTestVld("01@some.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.c", false));
+    tests.push_back(new LTestVld("00:00:00", true));
+    tests.push_back(new LTestVld("00:0+:-0", false));
+    tests.push_back(new LTestVld("01:02:03", true));
+    tests.push_back(new LTestVld("12:24:45", true));
+    tests.push_back(new LTestVld("23:59:59", true));
+    tests.push_back(new LTestVld("23:64:04", false));
+    tests.push_back(new LTestVld("23:59:61", false));
+    tests.push_back(new LTestVld("24:00:00", false));
+    tests.push_back(new LTestVld("25:90:00", false));
 
     for (unsigned int i = 0; i < tests.size(); i++) {
         std::string sValue = tests[i]->m_sValue;
@@ -44,7 +48,6 @@ bool UnitTestValidatorEmail::run() {
         bool bGotResult = pValidator->isValid(sValue, sError);
         compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-
     return bTestSuccess;
 }
 

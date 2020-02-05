@@ -6,11 +6,17 @@ Classes for data validation
 
 ## Completed classes
 
-- `new WJSCppValidatorStringRegexpBase("testre", "^[a-zA-Z]+$")` - validate value by regular expression
-- `new WJSCppValidatorStringListBase("lang", {"en", "de", "ru"})` - validate value from a list
-- `new WJSCppValidatorEmail()` - validate format email
-- `new WJSCppValidatorUUID()` - validate format uuid
-- `new WJSCppValidatorStringLength(1,100)` - validate min length and max length
+- `new WSJCppValidatorStringRegexpBase("testre", "^[a-zA-Z]+$")` - validate value by regular expression
+- `new WSJCppValidatorStringListBase("lang", {"en", "de", "ru"})` - validate value from a list
+- `new WSJCppValidatorEmail()` - validate format email
+- `new WSJCppValidatorUUID()` - validate format uuid
+- `new WSJCppValidatorStringLength(1,100)` - validate min length and max length
+- `new WSJCppValidatorJWT()` - validate format of JWT
+- `new WSJCppValidatorDate()` - validate format date like 'YYYY-MM-DD'
+- `new WSJCppValidatorTimeH24()` - validate format date like 'HH:mm:ss' (24 hours)
+- `new WSJCppValidatorBase64()` - validate format of base64
+- `new WSJCppValidatorNumber()` - validate format of number
+- `new WSJCppValidatorHex()` - validate hex value
 
 ## Integrate to your project
 
@@ -29,7 +35,7 @@ $ wsjcpp install https://github.com/wsjcpp/wsjcpp-validators:master
 
 ``` cpp
 
-WJSCppValidatorUUID *pValidatorUUID = new WJSCppValidatorUUID();
+WSJCppValidatorUUID *pValidatorUUID = new WSJCppValidatorUUID();
 std::string sError = "";
 if (!pValidatorUUID->isValid("abcdef01-ABCD-EF23-1000-000000000001", sError)) {
     std::cout << sError << std::endl;
@@ -39,14 +45,14 @@ if (!pValidatorUUID->isValid("abcdef01-ABCD-EF23-1000-000000000001", sError)) {
 ## Example for yuor implementations
 
 ``` cpp
-class WJSCppValidatorUUID : public WJSCppValidatorStringRegexpBase {
+class WSJCppValidatorUUID : public WSJCppValidatorStringRegexpBase {
     public:
-        WJSCppValidatorUUID() 
-            : WJSCppValidatorStringRegexpBase(
+        WSJCppValidatorUUID() 
+            : WSJCppValidatorStringRegexpBase(
                 "uuid", // name
                 "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"
             ) {
-            TAG = "WJSCppValidatorUUID";
+            TAG = "WSJCppValidatorUUID";
         }
 };
 ```

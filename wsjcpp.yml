@@ -3,7 +3,7 @@ cmake_minimum_required: 3.0
 cmake_cxx_standard: 11
 
 name: wsjcpp-validators
-version: v0.0.1
+version: v0.0.3
 description: Classes for data validation
 issues: https://github.com/wsjcpp/wsjcpp-validators/issues
 
@@ -48,3 +48,17 @@ unit-tests:
       description: "Test uuid validator"
     - name: "ValidatorStringList"
       description: "Test validator from a string list"
+    - name: "ValidatorJwt"
+      description: "JSON Web Token"
+    - name: "ValidatorDate"
+      description: "Date"
+    - name: "ValidatorTimeH24"
+      description: "TimeH24"
+    - name: "ValidatorRegExp"
+      description: "Regular expression"
+    - name: "ValidatorBase64"
+      description: "Regular expression"
+    - name: "ValidatorNumber"
+      description: "Regular expression"
+    - name: "ValidatorHex"
+      description: "Hex"

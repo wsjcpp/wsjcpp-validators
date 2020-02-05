@@ -1,23 +1,23 @@
-#include "unit_test_validator_email.h"
+#include "unit_test_validator_base64.h"
 #include <vector>
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorEmail)
+REGISTRY_UNIT_TEST(UnitTestValidatorBase64)
 
-UnitTestValidatorEmail::UnitTestValidatorEmail()
-    : WSJCppUnitTestBase("UnitTestValidatorEmail") {
+UnitTestValidatorBase64::UnitTestValidatorBase64()
+    : WSJCppUnitTestBase("UnitTestValidatorBase64") {
 }
 
 // ---------------------------------------------------------------------
 
-void UnitTestValidatorEmail::init() {
+void UnitTestValidatorBase64::init() {
     // nothing
 }
 
 // ---------------------------------------------------------------------
 
-bool UnitTestValidatorEmail::run() {
+bool UnitTestValidatorBase64::run() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -29,13 +29,13 @@ bool UnitTestValidatorEmail::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorEmail *pValidator = new WSJCppValidatorEmail();
-    tests.push_back(new LTestVld("some", false));
-    tests.push_back(new LTestVld("some@some", false));
-    tests.push_back(new LTestVld("some@some.rr", true));
-    tests.push_back(new LTestVld("01@some.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.c", false));
+    WSJCppValidatorBase64 *pValidator = new WSJCppValidatorBase64();
+    tests.push_back(new LTestVld("O2Rrc2Y7YXNsa2RmMQ==", true));
+    tests.push_back(new LTestVld("O2Rrc2Y7YXNsa2Rm", true));
+    tests.push_back(new LTestVld("O2Rrc2Y7YXNsa2Rm==", false));
+    tests.push_back(new LTestVld("1898-01-01", false));
+    tests.push_back(new LTestVld("+/11", true));
+    tests.push_back(new LTestVld("%$", false));
 
     for (unsigned int i = 0; i < tests.size(); i++) {
         std::string sValue = tests[i]->m_sValue;
@@ -44,7 +44,6 @@ bool UnitTestValidatorEmail::run() {
         bool bGotResult = pValidator->isValid(sValue, sError);
         compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-
     return bTestSuccess;
 }
 

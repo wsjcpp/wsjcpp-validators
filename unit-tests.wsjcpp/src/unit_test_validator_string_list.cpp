@@ -30,7 +30,7 @@ bool UnitTestValidatorStringList::run() {
     };
     std::vector<LTestVld *> tests;
 
-    WJSCppValidatorStringListBase *pValidator = new WJSCppValidatorStringListBase("test", {"some1", "some2", "some3", "hello"});
+    WSJCppValidatorStringListBase *pValidator = new WSJCppValidatorStringListBase("test", {"some1", "some2", "some3", "hello"});
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("dkljsfld", false));
     tests.push_back(new LTestVld("hello", true));

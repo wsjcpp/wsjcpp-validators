@@ -1,23 +1,23 @@
-#include "unit_test_validator_email.h"
+#include "unit_test_validator_jwt.h"
 #include <vector>
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorEmail)
+REGISTRY_UNIT_TEST(UnitTestValidatorJwt)
 
-UnitTestValidatorEmail::UnitTestValidatorEmail()
-    : WSJCppUnitTestBase("UnitTestValidatorEmail") {
+UnitTestValidatorJwt::UnitTestValidatorJwt()
+    : WSJCppUnitTestBase("UnitTestValidatorJwt") {
 }
 
 // ---------------------------------------------------------------------
 
-void UnitTestValidatorEmail::init() {
+void UnitTestValidatorJwt::init() {
     // nothing
 }
 
 // ---------------------------------------------------------------------
 
-bool UnitTestValidatorEmail::run() {
+bool UnitTestValidatorJwt::run() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -29,13 +29,9 @@ bool UnitTestValidatorEmail::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorEmail *pValidator = new WSJCppValidatorEmail();
+    WSJCppValidatorJWT *pValidator = new WSJCppValidatorJWT();
     tests.push_back(new LTestVld("some", false));
-    tests.push_back(new LTestVld("some@some", false));
-    tests.push_back(new LTestVld("some@some.rr", true));
-    tests.push_back(new LTestVld("01@some.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.c", false));
+    tests.push_back(new LTestVld("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjJ9.tbDepxpstvGdW8TC3G8zg4B6rUYAOvfzdceoH48wgRQ", true));
 
     for (unsigned int i = 0; i < tests.size(); i++) {
         std::string sValue = tests[i]->m_sValue;
@@ -44,7 +40,6 @@ bool UnitTestValidatorEmail::run() {
         bool bGotResult = pValidator->isValid(sValue, sError);
         compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-
     return bTestSuccess;
 }
 

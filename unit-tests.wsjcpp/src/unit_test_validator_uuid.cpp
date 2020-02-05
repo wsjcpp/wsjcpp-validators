@@ -30,7 +30,7 @@ bool UnitTestValidatorUuid::run() {
     };
     std::vector<LTestVld *> tests;
 
-    WJSCppValidatorUUID *pValidatorUUID = new WJSCppValidatorUUID();
+    WSJCppValidatorUUID *pValidatorUUID = new WSJCppValidatorUUID();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("00000000-0000-0000-1000-000000000001", true));
     tests.push_back(new LTestVld("abcdef01-ABCD-EF23-1000-000000000001", true));

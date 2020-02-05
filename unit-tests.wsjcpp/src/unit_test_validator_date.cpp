@@ -1,23 +1,23 @@
-#include "unit_test_validator_email.h"
+#include "unit_test_validator_date.h"
 #include <vector>
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorEmail)
+REGISTRY_UNIT_TEST(UnitTestValidatorDate)
 
-UnitTestValidatorEmail::UnitTestValidatorEmail()
-    : WSJCppUnitTestBase("UnitTestValidatorEmail") {
+UnitTestValidatorDate::UnitTestValidatorDate()
+    : WSJCppUnitTestBase("UnitTestValidatorDate") {
 }
 
 // ---------------------------------------------------------------------
 
-void UnitTestValidatorEmail::init() {
+void UnitTestValidatorDate::init() {
     // nothing
 }
 
 // ---------------------------------------------------------------------
 
-bool UnitTestValidatorEmail::run() {
+bool UnitTestValidatorDate::run() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -29,13 +29,18 @@ bool UnitTestValidatorEmail::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorEmail *pValidator = new WSJCppValidatorEmail();
+    WSJCppValidatorDate *pValidator = new WSJCppValidatorDate();
     tests.push_back(new LTestVld("some", false));
-    tests.push_back(new LTestVld("some@some", false));
-    tests.push_back(new LTestVld("some@some.rr", true));
-    tests.push_back(new LTestVld("01@some.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.com", true));
-    tests.push_back(new LTestVld("s_s-some@test.c", false));
+    tests.push_back(new LTestVld("2020-01-01", true));
+    tests.push_back(new LTestVld("2020-12-00", false));
+    tests.push_back(new LTestVld("0000-00-00", false));
+    tests.push_back(new LTestVld("0000-01-01", true));
+    tests.push_back(new LTestVld("2020-12-31", true));
+    tests.push_back(new LTestVld("2020-02-29", true));
+    tests.push_back(new LTestVld("2021-02-29", false));
+    tests.push_back(new LTestVld("1898-01-01", true));
+    tests.push_back(new LTestVld("1898-15-01", false));
+    tests.push_back(new LTestVld("1898-01-32", false));
 
     for (unsigned int i = 0; i < tests.size(); i++) {
         std::string sValue = tests[i]->m_sValue;
@@ -44,7 +49,6 @@ bool UnitTestValidatorEmail::run() {
         bool bGotResult = pValidator->isValid(sValue, sError);
         compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-
     return bTestSuccess;
 }
 
