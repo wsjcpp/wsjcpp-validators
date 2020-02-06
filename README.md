@@ -52,7 +52,7 @@ if (!pValidatorUUID->isValid("abcdef01-ABCD-EF23-1000-000000000001", sError)) {
 }
 ```
 
-## Example for yuor implementations
+## Example for your implementations
 
 ``` cpp
 class WSJCppValidatorUUID : public WSJCppValidatorStringRegexpBase {
