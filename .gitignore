@@ -33,3 +33,6 @@ tmp/*
 *.exe
 *.out
 *.app
+
+# Vim temp files
+*.swp
