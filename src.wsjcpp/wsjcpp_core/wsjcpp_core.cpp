@@ -436,6 +436,18 @@ std::string WSJCppCore::getPointerAsHex(void *p) {
 }
 
 // ---------------------------------------------------------------------
+
+std::string WSJCppCore::extractURLProtocol(const std::string& sValue) {
+    std::string sRet = "";
+    int nPosProtocol = sValue.find("://");
+    if (nPosProtocol == std::string::npos) {
+        return sRet;
+    }
+    sRet = sValue.substr(0, nPosProtocol);
+    return sRet;
+}
+
+// ---------------------------------------------------------------------
 // WSJCppLog
 
 // Last log messages

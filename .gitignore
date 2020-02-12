@@ -1,6 +1,9 @@
 wsjcpp-validators
 tmp/*
 
+# Vim temp files
+*.swp
+
 # Prerequisites
 *.d
 
@@ -34,5 +37,4 @@ tmp/*
 *.out
 *.app
 
-# Vim temp files
-*.swp
+

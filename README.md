@@ -15,6 +15,7 @@ Classes for data validation
 - `new WSJCppValidatorDate()` - validate format date like 'YYYY-MM-DD'
 - `new WSJCppValidatorTimeH24()` - validate format date like 'HH:mm:ss' (24 hours)
 - `new WSJCppValidatorDateTime()` - validate format date like 'YYYY-MM-DD\THH:mm:ss'
+- `new WSJCppValidatorURL()` - validate format of url
 - `new WSJCppValidatorBase64()` - validate format of base64
 - `new WSJCppValidatorNumber()` - validate format of number
 - `new WSJCppValidatorHex()` - validate hex value
