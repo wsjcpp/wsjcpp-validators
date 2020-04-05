@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorStringLength)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorStringLength)
 
 UnitTestValidatorStringLength::UnitTestValidatorStringLength()
-    : WSJCppUnitTestBase("UnitTestValidatorStringLength") {
+    : WsjcppUnitTestBase("UnitTestValidatorStringLength") {
 }
 
 // ---------------------------------------------------------------------
@@ -30,7 +30,7 @@ bool UnitTestValidatorStringLength::run() {
     };
     std::vector<LTestVld *> tests;
 
-    WSJCppValidatorStringLength *pValidator = new WSJCppValidatorStringLength(5,10);
+    WsjcppValidatorStringLength *pValidator = new WsjcppValidatorStringLength(5,10);
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("dkljs", true));
     tests.push_back(new LTestVld("hello", true));

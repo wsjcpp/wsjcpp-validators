@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorNumber)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorNumber)
 
 UnitTestValidatorNumber::UnitTestValidatorNumber()
-    : WSJCppUnitTestBase("UnitTestValidatorNumber") {
+    : WsjcppUnitTestBase("UnitTestValidatorNumber") {
 }
 
 // ---------------------------------------------------------------------
@@ -29,7 +29,7 @@ bool UnitTestValidatorNumber::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorNumber *pValidator = new WSJCppValidatorNumber();
+    WsjcppValidatorNumber *pValidator = new WsjcppValidatorNumber();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("2020-01-01", false));
     tests.push_back(new LTestVld("2020", true));

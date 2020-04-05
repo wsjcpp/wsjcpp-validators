@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorStringList)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorStringList)
 
 UnitTestValidatorStringList::UnitTestValidatorStringList()
-    : WSJCppUnitTestBase("UnitTestStringList") {
+    : WsjcppUnitTestBase("UnitTestStringList") {
 }
 
 // ---------------------------------------------------------------------
@@ -30,7 +30,7 @@ bool UnitTestValidatorStringList::run() {
     };
     std::vector<LTestVld *> tests;
 
-    WSJCppValidatorStringListBase *pValidator = new WSJCppValidatorStringListBase("test", {"some1", "some2", "some3", "hello"});
+    WsjcppValidatorStringListBase *pValidator = new WsjcppValidatorStringListBase("test", {"some1", "some2", "some3", "hello"});
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("dkljsfld", false));
     tests.push_back(new LTestVld("hello", true));

@@ -4,7 +4,7 @@
 #include <wsjcpp_unit_tests.h>
 
 // Description: TODO
-class UnitTestValidatorRegExp : public WSJCppUnitTestBase {
+class UnitTestValidatorRegExp : public WsjcppUnitTestBase {
     public:
         UnitTestValidatorRegExp();
         virtual void init();

@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorUuid)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorUuid)
 
 UnitTestValidatorUuid::UnitTestValidatorUuid()
-    : WSJCppUnitTestBase("UnitTestValidatorUuid") {
+    : WsjcppUnitTestBase("UnitTestValidatorUuid") {
 }
 
 // ---------------------------------------------------------------------
@@ -30,7 +30,7 @@ bool UnitTestValidatorUuid::run() {
     };
     std::vector<LTestVld *> tests;
 
-    WSJCppValidatorUUID *pValidatorUUID = new WSJCppValidatorUUID();
+    WsjcppValidatorUUID *pValidatorUUID = new WsjcppValidatorUUID();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("00000000-0000-0000-1000-000000000001", true));
     tests.push_back(new LTestVld("abcdef01-ABCD-EF23-1000-000000000001", true));

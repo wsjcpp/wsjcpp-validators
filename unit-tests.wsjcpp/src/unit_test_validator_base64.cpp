@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorBase64)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorBase64)
 
 UnitTestValidatorBase64::UnitTestValidatorBase64()
-    : WSJCppUnitTestBase("UnitTestValidatorBase64") {
+    : WsjcppUnitTestBase("UnitTestValidatorBase64") {
 }
 
 // ---------------------------------------------------------------------
@@ -29,7 +29,7 @@ bool UnitTestValidatorBase64::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorBase64 *pValidator = new WSJCppValidatorBase64();
+    WsjcppValidatorBase64 *pValidator = new WsjcppValidatorBase64();
     tests.push_back(new LTestVld("O2Rrc2Y7YXNsa2RmMQ==", true));
     tests.push_back(new LTestVld("O2Rrc2Y7YXNsa2Rm", true));
     tests.push_back(new LTestVld("O2Rrc2Y7YXNsa2Rm==", false));

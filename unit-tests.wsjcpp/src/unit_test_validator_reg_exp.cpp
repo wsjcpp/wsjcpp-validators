@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorRegExp)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorRegExp)
 
 UnitTestValidatorRegExp::UnitTestValidatorRegExp()
-    : WSJCppUnitTestBase("UnitTestValidatorRegExp") {
+    : WsjcppUnitTestBase("UnitTestValidatorRegExp") {
 }
 
 // ---------------------------------------------------------------------
@@ -29,7 +29,7 @@ bool UnitTestValidatorRegExp::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorStringRegexpBase *pValidator = new WSJCppValidatorStringRegexpBase("simpleregexp", "^[A-Z]*$");
+    WsjcppValidatorStringRegexpBase *pValidator = new WsjcppValidatorStringRegexpBase("simpleregexp", "^[A-Z]*$");
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("ABCD", true));
 

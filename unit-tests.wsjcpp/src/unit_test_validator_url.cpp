@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorUrl)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorUrl)
 
 UnitTestValidatorUrl::UnitTestValidatorUrl()
-    : WSJCppUnitTestBase("UnitTestValidatorUrl") {
+    : WsjcppUnitTestBase("UnitTestValidatorUrl") {
 }
 
 // ---------------------------------------------------------------------
@@ -29,7 +29,7 @@ bool UnitTestValidatorUrl::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorURL *pValidator = new WSJCppValidatorURL();
+    WsjcppValidatorURL *pValidator = new WsjcppValidatorURL();
     tests.push_back(new LTestVld("https://google.com/?some=1&som24", true));
     tests.push_back(new LTestVld("https://google.com/?some=1&som24/", true));
     tests.push_back(new LTestVld("http://foo.com/blah_blah", true));
@@ -129,7 +129,7 @@ bool UnitTestValidatorUrl::run() {
         }
     }
     if (nFailed > 0) {
-        WSJCppLog::err(TAG, "Failed tests " + std::to_string(nFailed) + "/" + std::to_string(tests.size()));
+        WsjcppLog::err(TAG, "Failed tests " + std::to_string(nFailed) + "/" + std::to_string(tests.size()));
     }
     return bTestSuccess;
 }

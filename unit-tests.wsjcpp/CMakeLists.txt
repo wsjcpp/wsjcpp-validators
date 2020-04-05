@@ -2,8 +2,8 @@
 cmake_minimum_required(VERSION 3.0)
 
 project(unit-tests C CXX)
-
-find_package(Threads REQUIRED)
+add_definitions(-DWSJCPP_VERSION="ut-v0.1.0")
+add_definitions(-DWSJCPP_NAME="unit-tests-wsjcpp-validators")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(MACOSX TRUE)
@@ -16,7 +16,10 @@ set (WSJCPP_LIBRARIES "")
 set (WSJCPP_INCLUDE_DIRS "")
 set (WSJCPP_SOURCES "")
 
-# wsjcpp-core:v0.0.5
+find_package(Threads REQUIRED)
+list (APPEND WSJCPP_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
+
+# wsjcpp-core:v0.1.1
 list (APPEND WSJCPP_INCLUDE_DIRS "../src.wsjcpp/wsjcpp_core/")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_core.cpp")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_core.h")
@@ -24,7 +27,7 @@ list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests.cpp")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests.h")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests_main.cpp")
 
-# wsjcpp-validators:v0.0.3
+# wsjcpp-validators:v0.1.0
 list (APPEND WSJCPP_INCLUDE_DIRS "../src")
 list (APPEND WSJCPP_SOURCES "../src/wsjcpp_validators.h")
 list (APPEND WSJCPP_SOURCES "../src/wsjcpp_validators.cpp")
@@ -62,11 +65,17 @@ list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v4.c
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v6.h")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v6.cpp")
 
+# required-libraries
+list (APPEND WSJCPP_LIBRARIES "-lpthread")
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.user-custom.txt)
+
+
 include_directories(${WSJCPP_INCLUDE_DIRS})
 
 add_executable ("unit-tests" ${WSJCPP_SOURCES})
 
-target_link_libraries("unit-tests" ${CMAKE_THREAD_LIBS_INIT} )
+target_link_libraries("unit-tests" -lpthread ${WSJCPP_LIBRARIES} )
 
 install(
     TARGETS
@@ -74,4 +83,5 @@ install(
     RUNTIME DESTINATION
         /usr/bin
 )
+
 

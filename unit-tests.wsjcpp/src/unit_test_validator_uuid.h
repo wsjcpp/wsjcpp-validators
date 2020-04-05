@@ -4,7 +4,7 @@
 #include <wsjcpp_unit_tests.h>
 
 // Description: TODO
-class UnitTestValidatorUuid : public WSJCppUnitTestBase {
+class UnitTestValidatorUuid : public WsjcppUnitTestBase {
     public:
         UnitTestValidatorUuid();
         virtual void init();

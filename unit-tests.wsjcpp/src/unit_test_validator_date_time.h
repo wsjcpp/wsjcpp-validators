@@ -4,7 +4,7 @@
 #include <wsjcpp_unit_tests.h>
 
 // Description: TODO
-class UnitTestValidatorDateTime : public WSJCppUnitTestBase {
+class UnitTestValidatorDateTime : public WsjcppUnitTestBase {
     public:
         UnitTestValidatorDateTime();
         virtual void init();

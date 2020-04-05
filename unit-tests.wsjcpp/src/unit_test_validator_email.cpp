@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorEmail)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorEmail)
 
 UnitTestValidatorEmail::UnitTestValidatorEmail()
-    : WSJCppUnitTestBase("UnitTestValidatorEmail") {
+    : WsjcppUnitTestBase("UnitTestValidatorEmail") {
 }
 
 // ---------------------------------------------------------------------
@@ -29,7 +29,7 @@ bool UnitTestValidatorEmail::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorEmail *pValidator = new WSJCppValidatorEmail();
+    WsjcppValidatorEmail *pValidator = new WsjcppValidatorEmail();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("some@some", false));
     tests.push_back(new LTestVld("some@some.rr", true));

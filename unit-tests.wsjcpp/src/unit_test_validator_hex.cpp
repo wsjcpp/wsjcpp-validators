@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorHex)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorHex)
 
 UnitTestValidatorHex::UnitTestValidatorHex()
-    : WSJCppUnitTestBase("UnitTestValidatorHex") {
+    : WsjcppUnitTestBase("UnitTestValidatorHex") {
 }
 
 // ---------------------------------------------------------------------
@@ -29,7 +29,7 @@ bool UnitTestValidatorHex::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorHex *pValidator = new WSJCppValidatorHex();
+    WsjcppValidatorHex *pValidator = new WsjcppValidatorHex();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("2020", true));
     tests.push_back(new LTestVld("abcdef0123456789ABCDEF", true));

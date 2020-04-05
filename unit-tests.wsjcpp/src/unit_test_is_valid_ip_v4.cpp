@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestisValidIpV4)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestisValidIpV4)
 
 UnitTestisValidIpV4::UnitTestisValidIpV4()
-    : WSJCppUnitTestBase("UnitTestisValidIpV4") {
+    : WsjcppUnitTestBase("UnitTestisValidIpV4") {
 }
 
 // ---------------------------------------------------------------------
@@ -43,7 +43,7 @@ bool UnitTestisValidIpV4::run() {
     for (int i = 0; i < vIPv4s.size(); i++) {
         TestIPv4 t = vIPv4s[i];
         std::string sError;
-        bool bGotResult = WSJCppValidators::isValidIPv4(t.m_sIPv4, sError);
+        bool bGotResult = WsjcppValidators::isValidIPv4(t.m_sIPv4, sError);
         compareB(bTestSuccess, "Test[" + t.m_sIPv4 + ", error=" + sError + "]", bGotResult, t.m_bExpected);
     }
     return bTestSuccess;

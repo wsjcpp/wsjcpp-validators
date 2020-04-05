@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorJwt)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorJwt)
 
 UnitTestValidatorJwt::UnitTestValidatorJwt()
-    : WSJCppUnitTestBase("UnitTestValidatorJwt") {
+    : WsjcppUnitTestBase("UnitTestValidatorJwt") {
 }
 
 // ---------------------------------------------------------------------
@@ -29,7 +29,7 @@ bool UnitTestValidatorJwt::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorJWT *pValidator = new WSJCppValidatorJWT();
+    WsjcppValidatorJWT *pValidator = new WsjcppValidatorJWT();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjJ9.tbDepxpstvGdW8TC3G8zg4B6rUYAOvfzdceoH48wgRQ", true));
 

@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestisValidIpV6)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestisValidIpV6)
 
 UnitTestisValidIpV6::UnitTestisValidIpV6()
-    : WSJCppUnitTestBase("UnitTestisValidIpV6") {
+    : WsjcppUnitTestBase("UnitTestisValidIpV6") {
 }
 
 // ---------------------------------------------------------------------
@@ -44,7 +44,7 @@ bool UnitTestisValidIpV6::run() {
     for (int i = 0; i < vIPv6s.size(); i++) {
         TestIPv6 t = vIPv6s[i];
         std::string sError;
-        bool bGotResult = WSJCppValidators::isValidIPv6(t.m_sIPv6, sError);
+        bool bGotResult = WsjcppValidators::isValidIPv6(t.m_sIPv6, sError);
         compareB(bTestSuccess, "Test[" + t.m_sIPv6 + ", error = " + sError + "]", bGotResult, t.m_bExpected);
     }
     return bTestSuccess;

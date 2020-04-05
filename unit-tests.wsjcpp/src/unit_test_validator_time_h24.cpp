@@ -3,10 +3,10 @@
 #include <wsjcpp_core.h>
 #include <wsjcpp_validators.h>
 
-REGISTRY_UNIT_TEST(UnitTestValidatorTimeH24)
+REGISTRY_WSJCPP_UNIT_TEST(UnitTestValidatorTimeH24)
 
 UnitTestValidatorTimeH24::UnitTestValidatorTimeH24()
-    : WSJCppUnitTestBase("UnitTestValidatorTimeH24") {
+    : WsjcppUnitTestBase("UnitTestValidatorTimeH24") {
 }
 
 // ---------------------------------------------------------------------
@@ -29,7 +29,7 @@ bool UnitTestValidatorTimeH24::run() {
     };
     std::vector<LTestVld *> tests;
     
-    WSJCppValidatorTimeH24 *pValidator = new WSJCppValidatorTimeH24();
+    WsjcppValidatorTimeH24 *pValidator = new WsjcppValidatorTimeH24();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("00:00:00", true));
     tests.push_back(new LTestVld("00:0+:-0", false));
