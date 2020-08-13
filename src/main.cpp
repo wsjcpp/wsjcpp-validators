@@ -20,8 +20,8 @@ int main(int argc, char* argv[]) {
     // WsjcppLog::info(TAG, "Hello");
     WsjcppCore::init(
         argc, argv, 
-        std::string(WSJCPP_NAME),
-        std::string(WSJCPP_VERSION),
+        std::string(WSJCPP_APP_NAME),
+        std::string(WSJCPP_APP_VERSION),
         "Evgenii Sopov",
         ""
     );
