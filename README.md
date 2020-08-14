@@ -19,6 +19,8 @@ Classes for data validation
 - `new WsjcppValidatorBase64()` - validate format of base64
 - `new WsjcppValidatorNumber()` - validate format of number
 - `new WsjcppValidatorHex()` - validate hex value
+- `new WsjcppValidatorIntegerMinValue(1)` - validate integer min value
+- `new WsjcppValidatorIntegerMaxValue(100)` - validate integer max value
 
 ## Completed static functions
 
@@ -33,6 +35,7 @@ Classes for data validation
 
 Just include this files:
 
+- src.wsjcpp/nlohmann_json/json.hpp
 - src/wsjcpp_validators.h
 - src/wsjcpp_validators.cpp
 

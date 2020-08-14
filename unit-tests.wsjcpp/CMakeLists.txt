@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 project(unit-tests C CXX)
-add_definitions(-DWSJCPP_APP_VERSION="ut-v0.1.1")
+add_definitions(-DWSJCPP_APP_VERSION="ut-v0.1.2")
 add_definitions(-DWSJCPP_APP_NAME="unit-tests-wsjcpp-validators")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -19,15 +19,21 @@ set (WSJCPP_SOURCES "")
 find_package(Threads REQUIRED)
 list (APPEND WSJCPP_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
 
-# wsjcpp-core:v0.1.1
+# wsjcpp-core:v0.1.7
 list (APPEND WSJCPP_INCLUDE_DIRS "../src.wsjcpp/wsjcpp_core/")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_core.cpp")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_core.h")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests.cpp")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests.h")
 list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests_main.cpp")
+list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_resources_manager.h")
+list (APPEND WSJCPP_SOURCES "../src.wsjcpp/wsjcpp_core/wsjcpp_resources_manager.cpp")
 
-# wsjcpp-validators:v0.1.1
+# nlohmann/json:v3.9.1
+list (APPEND WSJCPP_INCLUDE_DIRS "../src.wsjcpp/nlohmann_json/")
+list (APPEND WSJCPP_SOURCES "../src.wsjcpp/nlohmann_json/json.hpp")
+
+# wsjcpp-validators:v0.1.2
 list (APPEND WSJCPP_INCLUDE_DIRS "../src")
 list (APPEND WSJCPP_SOURCES "../src/wsjcpp_validators.h")
 list (APPEND WSJCPP_SOURCES "../src/wsjcpp_validators.cpp")
@@ -64,6 +70,10 @@ list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v4.h
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v4.cpp")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v6.h")
 list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_is_valid_ip_v6.cpp")
+list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_integer_min_value.h")
+list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_integer_min_value.cpp")
+list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_integer_max_value.h")
+list (APPEND WSJCPP_SOURCES "../unit-tests.wsjcpp/src/unit_test_validator_integer_max_value.cpp")
 
 # required-libraries
 list (APPEND WSJCPP_LIBRARIES "-lpthread")
