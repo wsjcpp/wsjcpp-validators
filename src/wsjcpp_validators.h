@@ -159,6 +159,15 @@ private:
   std::regex m_rxLikeIPv4Format;
 };
 
+class WsjcppValidatorDomainName : public WsjcppValidatorStringBase {
+public:
+  WsjcppValidatorDomainName();
+  virtual bool isValid(const std::string &sValue, std::string &sError);
+
+private:
+  std::string TAG;
+};
+
 class WsjcppValidatorBase64 : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorBase64();
