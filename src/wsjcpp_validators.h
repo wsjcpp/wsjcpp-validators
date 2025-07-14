@@ -35,8 +35,6 @@ enum WsjcppValidatorType {
   WSJCPP_VALIDATOR_JSON
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidators {
 public:
   static bool isValidDate(const std::string &sValue, std::string &sError);
@@ -64,8 +62,6 @@ getTypeName(); virtual bool isValid(const std::string &sValue, std::string
 
 */
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorStringBase {
 public:
   WsjcppValidatorStringBase(const std::string &typeName);
@@ -80,8 +76,6 @@ private:
   std::string m_sTypeName;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorStringRegexpBase : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorStringRegexpBase(const std::string &typeName,
@@ -93,8 +87,6 @@ private:
   std::regex m_rxValidator;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorStringListBase : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorStringListBase(const std::string &typeName,
@@ -105,21 +97,15 @@ private:
   std::vector<std::string> m_vListValues;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorEmail : public WsjcppValidatorStringRegexpBase {
 public:
   WsjcppValidatorEmail();
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorUUID : public WsjcppValidatorStringRegexpBase {
 public:
   WsjcppValidatorUUID();
 };
-
-// ----------------------------------------------------------------------
 
 class WsjcppValidatorStringLength : public WsjcppValidatorStringBase {
 public:
@@ -132,14 +118,10 @@ private:
   int m_nMaxLength;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorJWT : public WsjcppValidatorStringRegexpBase {
 public:
   WsjcppValidatorJWT();
 };
-
-// ----------------------------------------------------------------------
 
 class WsjcppValidatorDate : public WsjcppValidatorStringBase {
 public:
@@ -150,8 +132,6 @@ private:
   std::string TAG;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorTimeH24 : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorTimeH24();
@@ -161,8 +141,6 @@ private:
   std::string TAG;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorDateTime : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorDateTime();
@@ -171,8 +149,6 @@ public:
 private:
   std::string TAG;
 };
-
-// ----------------------------------------------------------------------
 
 class WsjcppValidatorURL : public WsjcppValidatorStringBase {
 public:
@@ -184,8 +160,6 @@ private:
   std::regex m_rxLikeIPv4Format;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorBase64 : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorBase64();
@@ -194,8 +168,6 @@ public:
 private:
   std::string TAG;
 };
-
-// ----------------------------------------------------------------------
 
 class WsjcppValidatorNumber : public WsjcppValidatorStringBase {
 public:
@@ -206,8 +178,6 @@ private:
   std::string TAG;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorHex : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorHex();
@@ -216,8 +186,6 @@ public:
 private:
   std::string TAG;
 };
-
-// ----------------------------------------------------------------------
 
 class WsjcppValidatorIntegerBase {
 public:
@@ -233,8 +201,6 @@ private:
   std::string m_sTypeName;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorIntegerMinValue : public WsjcppValidatorIntegerBase {
 public:
   WsjcppValidatorIntegerMinValue(int nMinValue);
@@ -245,8 +211,6 @@ private:
   int m_nMinValue;
 };
 
-// ----------------------------------------------------------------------
-
 class WsjcppValidatorIntegerMaxValue : public WsjcppValidatorIntegerBase {
 public:
   WsjcppValidatorIntegerMaxValue(int nMaxValue);
@@ -256,8 +220,6 @@ private:
   std::string TAG;
   int m_nMaxValue;
 };
-
-// ----------------------------------------------------------------------
 
 class WsjcppValidatorJsonBase {
 public:

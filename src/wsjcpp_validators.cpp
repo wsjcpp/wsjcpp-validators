@@ -87,8 +87,6 @@ bool WsjcppValidators::isValidDate(const std::string &sValue,
   return true;
 }
 
-// ----------------------------------------------------------------------
-
 bool WsjcppValidators::isValidTimeH24(const std::string &sValue,
                                       std::string &sError) {
   int nSize = sValue.size();
@@ -141,8 +139,6 @@ bool WsjcppValidators::isValidTimeH24(const std::string &sValue,
   }
   return true;
 }
-
-// ----------------------------------------------------------------------
 
 bool WsjcppValidators::isValidDomainName(const std::string &sValue,
                                          std::string &sError) {
@@ -232,15 +228,11 @@ bool WsjcppValidators::isValidDomainName(const std::string &sValue,
   return true;
 }
 
-// ----------------------------------------------------------------------
-
 bool WsjcppValidators::isValidPort(const std::string &sValue,
                                    std::string &sError) {
   int nPort = std::atoi(sValue.c_str());
   return WsjcppValidators::isValidPort(nPort, sError);
 }
-
-// ----------------------------------------------------------------------
 
 bool WsjcppValidators::isValidPort(int nValue, std::string &sError) {
   if (nValue < 1 || nValue > 65535) {
@@ -251,8 +243,6 @@ bool WsjcppValidators::isValidPort(int nValue, std::string &sError) {
   return true;
 }
 
-// ----------------------------------------------------------------------
-
 bool WsjcppValidators::isValidURLProtocol(const std::string &sValue,
                                           std::string &sError) {
   if (sValue != "http" && sValue != "https" && sValue != "ws" &&
@@ -262,8 +252,6 @@ bool WsjcppValidators::isValidURLProtocol(const std::string &sValue,
   }
   return true;
 }
-
-// ----------------------------------------------------------------------
 
 bool WsjcppValidators::isValidBase64(const std::string &sValue,
                                      std::string &sError) {
@@ -301,8 +289,6 @@ bool WsjcppValidators::isValidBase64(const std::string &sValue,
   return true;
 }
 
-// ----------------------------------------------------------------------
-
 bool WsjcppValidators::isValidIPv4(const std::string &sValue,
                                    std::string &sError) {
   int n = 0;
@@ -339,8 +325,6 @@ bool WsjcppValidators::isValidIPv4(const std::string &sValue,
   return true;
 }
 
-// ----------------------------------------------------------------------
-
 bool WsjcppValidators::isValidIPv6(const std::string &sValue,
                                    std::string &sError) {
   // TODO redesign without arpa
@@ -361,13 +345,9 @@ WsjcppValidatorStringBase::WsjcppValidatorStringBase(
   m_sTypeName = sTypeName;
 }
 
-// ----------------------------------------------------------------------
-
 WsjcppValidatorType WsjcppValidatorStringBase::getBaseType() {
   return WsjcppValidatorType::WSJCPP_VALIDATOR_STRING;
 }
-
-// ----------------------------------------------------------------------
 
 std::string WsjcppValidatorStringBase::getTypeName() { return m_sTypeName; }
 
@@ -381,8 +361,6 @@ WsjcppValidatorStringRegexpBase::WsjcppValidatorStringRegexpBase(
   m_sValidator = sValidator;
   m_rxValidator = std::regex(sValidator);
 }
-
-// ----------------------------------------------------------------------
 
 bool WsjcppValidatorStringRegexpBase::isValid(const std::string &sValue,
                                               std::string &sError) {
@@ -402,8 +380,6 @@ WsjcppValidatorStringListBase::WsjcppValidatorStringListBase(
     : WsjcppValidatorStringBase(sTypeName) {
   m_vListValues = vListValues;
 }
-
-// ----------------------------------------------------------------------
 
 bool WsjcppValidatorStringListBase::isValid(const std::string &sValue,
                                             std::string &sError) {
@@ -453,8 +429,6 @@ WsjcppValidatorStringLength::WsjcppValidatorStringLength(int nMinLength,
   m_nMaxLength = nMaxLength;
 }
 
-// ----------------------------------------------------------------------
-
 bool WsjcppValidatorStringLength::isValid(const std::string &sValue,
                                           std::string &sError) {
   if (sValue.length() < m_nMinLength) {
@@ -502,8 +476,6 @@ WsjcppValidatorTimeH24::WsjcppValidatorTimeH24()
   TAG = "WsjcppValidatorTime";
 }
 
-// ----------------------------------------------------------------------
-
 bool WsjcppValidatorTimeH24::isValid(const std::string &sValue,
                                      std::string &sError) {
   return WsjcppValidators::isValidTimeH24(sValue, sError);
@@ -516,8 +488,6 @@ WsjcppValidatorDateTime::WsjcppValidatorDateTime()
     : WsjcppValidatorStringBase("datetime") {
   TAG = "WsjcppValidatorDateTime";
 }
-
-// ----------------------------------------------------------------------
 
 bool WsjcppValidatorDateTime::isValid(const std::string &sValue,
                                       std::string &sError) {
@@ -552,8 +522,6 @@ WsjcppValidatorURL::WsjcppValidatorURL() : WsjcppValidatorStringBase("url") {
   m_rxLikeIPv4Format =
       std::regex("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$");
 }
-
-// ----------------------------------------------------------------------
 
 bool WsjcppValidatorURL::isValid(const std::string &sValue,
                                  std::string &sError) {
