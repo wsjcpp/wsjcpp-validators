@@ -770,22 +770,3 @@ bool WsjcppValidatorIntegerMaxValue::isValid(int nValue, std::string &sError) {
   return true;
 }
 
-// ----------------------------------------------------------------------
-// WsjcppValidatorJsonBase
-
-WsjcppValidatorJsonBase::WsjcppValidatorJsonBase(const std::string &sTypeName) {
-  TAG = "WsjcppValidatorJsonBase";
-  m_sTypeName = sTypeName;
-}
-
-// ----------------------------------------------------------------------
-
-WsjcppValidatorType WsjcppValidatorJsonBase::getBaseType() {
-  return WsjcppValidatorType::WSJCPP_VALIDATOR_JSON;
-}
-
-// ----------------------------------------------------------------------
-
-std::string WsjcppValidatorJsonBase::getTypeName() { return m_sTypeName; }
-
-// ----------------------------------------------------------------------

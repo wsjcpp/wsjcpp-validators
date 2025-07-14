@@ -24,7 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-#include <json.hpp>
 #include <regex>
 #include <string>
 #include <vector>
@@ -219,18 +218,4 @@ public:
 private:
   std::string TAG;
   int m_nMaxValue;
-};
-
-class WsjcppValidatorJsonBase {
-public:
-  WsjcppValidatorJsonBase(const std::string &typeName);
-  virtual WsjcppValidatorType getBaseType();
-  virtual std::string getTypeName();
-  virtual bool isValid(const nlohmann::json &nValue, std::string &sError) = 0;
-
-protected:
-  std::string TAG;
-
-private:
-  std::string m_sTypeName;
 };
