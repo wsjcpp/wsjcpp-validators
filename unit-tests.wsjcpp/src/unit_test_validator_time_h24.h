@@ -7,8 +7,9 @@
 class UnitTestValidatorTimeH24 : public WsjcppUnitTestBase {
     public:
         UnitTestValidatorTimeH24();
-        virtual void init();
-        virtual bool run();
+        virtual bool doBeforeTest() override;
+        virtual void executeTest() override;
+        virtual bool doAfterTest() override;
 };
 
 #endif // UNIT_TEST_VALIDATOR_TIME_H24_H

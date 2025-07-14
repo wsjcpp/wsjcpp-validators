@@ -7,8 +7,9 @@
 class UnitTestValidatorBase64 : public WsjcppUnitTestBase {
     public:
         UnitTestValidatorBase64();
-        virtual void init();
-        virtual bool run();
+        virtual bool doBeforeTest() override;
+        virtual void executeTest() override;
+        virtual bool doAfterTest() override;
 };
 
 #endif // UNIT_TEST_VALIDATOR_BASE64_H

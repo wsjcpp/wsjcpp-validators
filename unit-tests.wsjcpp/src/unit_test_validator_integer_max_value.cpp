@@ -9,15 +9,11 @@ UnitTestValidatorIntegerMaxValue::UnitTestValidatorIntegerMaxValue()
     : WsjcppUnitTestBase("UnitTestValidatorIntegerMaxValue") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorIntegerMaxValue::init() {
-    // nothing
+bool UnitTestValidatorIntegerMaxValue::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorIntegerMaxValue::run() {
+void UnitTestValidatorIntegerMaxValue::executeTest() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(int nValue, bool bExpectedResult) {
@@ -35,16 +31,16 @@ bool UnitTestValidatorIntegerMaxValue::run() {
     tests.push_back(new LTestVld(-10, true));
     tests.push_back(new LTestVld(1001, false));
     tests.push_back(new LTestVld(100100000, false));
-    
+
     for (unsigned int i = 0; i < tests.size(); i++) {
         int nValue = tests[i]->m_nValue;
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(nValue, sError);
-        compareB(bTestSuccess, "Test '" + std::to_string(nValue) + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + std::to_string(nValue) + "' error: " + sError, bGotResult, bExpectedResult);
     }
-
-
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorIntegerMaxValue::doAfterTest() {
+    return true;
+}

@@ -9,15 +9,11 @@ UnitTestValidatorIntegerMinValue::UnitTestValidatorIntegerMinValue()
     : WsjcppUnitTestBase("UnitTestValidatorIntegerMinValue") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorIntegerMinValue::init() {
-    // nothing
+bool UnitTestValidatorIntegerMinValue::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorIntegerMinValue::run() {
+void UnitTestValidatorIntegerMinValue::executeTest() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(int nValue, bool bExpectedResult) {
@@ -36,14 +32,16 @@ bool UnitTestValidatorIntegerMinValue::run() {
     tests.push_back(new LTestVld(0, false));
     tests.push_back(new LTestVld(1001, true));
     tests.push_back(new LTestVld(100100000, true));
-    
+
     for (unsigned int i = 0; i < tests.size(); i++) {
         int nValue = tests[i]->m_nValue;
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(nValue, sError);
-        compareB(bTestSuccess, "Test '" + std::to_string(nValue) + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + std::to_string(nValue) + "' error: " + sError, bGotResult, bExpectedResult);
     }
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorIntegerMinValue::doAfterTest() {
+    return true;
+}

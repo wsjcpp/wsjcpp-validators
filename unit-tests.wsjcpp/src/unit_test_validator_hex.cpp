@@ -9,15 +9,11 @@ UnitTestValidatorHex::UnitTestValidatorHex()
     : WsjcppUnitTestBase("UnitTestValidatorHex") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorHex::init() {
-    // nothing
+bool UnitTestValidatorHex::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorHex::run() {
+void UnitTestValidatorHex::executeTest() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -28,7 +24,7 @@ bool UnitTestValidatorHex::run() {
         int m_bExpectedResult;
     };
     std::vector<LTestVld *> tests;
-    
+
     WsjcppValidatorHex *pValidator = new WsjcppValidatorHex();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("2020", true));
@@ -40,8 +36,10 @@ bool UnitTestValidatorHex::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorHex::doAfterTest() {
+    return true;
+}

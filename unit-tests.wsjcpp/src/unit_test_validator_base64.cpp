@@ -9,15 +9,11 @@ UnitTestValidatorBase64::UnitTestValidatorBase64()
     : WsjcppUnitTestBase("UnitTestValidatorBase64") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorBase64::init() {
-    // nothing
+bool UnitTestValidatorBase64::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorBase64::run() {
+void UnitTestValidatorBase64::executeTest() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -28,7 +24,7 @@ bool UnitTestValidatorBase64::run() {
         int m_bExpectedResult;
     };
     std::vector<LTestVld *> tests;
-    
+
     WsjcppValidatorBase64 *pValidator = new WsjcppValidatorBase64();
     tests.push_back(new LTestVld("O2Rrc2Y7YXNsa2RmMQ==", true));
     tests.push_back(new LTestVld("O2Rrc2Y7YXNsa2Rm", true));
@@ -42,8 +38,10 @@ bool UnitTestValidatorBase64::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorBase64::doAfterTest() {
+    return true;
+}

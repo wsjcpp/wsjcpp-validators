@@ -9,16 +9,11 @@ UnitTestValidatorEmail::UnitTestValidatorEmail()
     : WsjcppUnitTestBase("UnitTestValidatorEmail") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorEmail::init() {
-    // nothing
+bool UnitTestValidatorEmail::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorEmail::run() {
-    bool bTestSuccess = true;
+void UnitTestValidatorEmail::executeTest() {
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
             m_sValue = sValue;
@@ -28,7 +23,7 @@ bool UnitTestValidatorEmail::run() {
         int m_bExpectedResult;
     };
     std::vector<LTestVld *> tests;
-    
+
     WsjcppValidatorEmail *pValidator = new WsjcppValidatorEmail();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("some@some", false));
@@ -42,9 +37,10 @@ bool UnitTestValidatorEmail::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorEmail::doAfterTest() {
+    return true;
+}

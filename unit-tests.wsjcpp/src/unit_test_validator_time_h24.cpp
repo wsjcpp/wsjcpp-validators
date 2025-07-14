@@ -9,15 +9,11 @@ UnitTestValidatorTimeH24::UnitTestValidatorTimeH24()
     : WsjcppUnitTestBase("UnitTestValidatorTimeH24") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorTimeH24::init() {
-    // nothing
+bool UnitTestValidatorTimeH24::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorTimeH24::run() {
+void UnitTestValidatorTimeH24::executeTest() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -28,7 +24,7 @@ bool UnitTestValidatorTimeH24::run() {
         int m_bExpectedResult;
     };
     std::vector<LTestVld *> tests;
-    
+
     WsjcppValidatorTimeH24 *pValidator = new WsjcppValidatorTimeH24();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("00:00:00", true));
@@ -46,8 +42,10 @@ bool UnitTestValidatorTimeH24::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorTimeH24::doAfterTest() {
+    return true;
+}

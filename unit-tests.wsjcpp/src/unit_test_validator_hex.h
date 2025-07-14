@@ -7,8 +7,9 @@
 class UnitTestValidatorHex : public WsjcppUnitTestBase {
     public:
         UnitTestValidatorHex();
-        virtual void init();
-        virtual bool run();
+        virtual bool doBeforeTest() override;
+        virtual void executeTest() override;
+        virtual bool doAfterTest() override;
 };
 
 #endif // UNIT_TEST_VALIDATOR_HEX_H

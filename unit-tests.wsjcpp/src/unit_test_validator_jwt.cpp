@@ -9,15 +9,11 @@ UnitTestValidatorJwt::UnitTestValidatorJwt()
     : WsjcppUnitTestBase("UnitTestValidatorJwt") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorJwt::init() {
-    // nothing
+bool UnitTestValidatorJwt::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorJwt::run() {
+void UnitTestValidatorJwt::executeTest() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -28,7 +24,7 @@ bool UnitTestValidatorJwt::run() {
         int m_bExpectedResult;
     };
     std::vector<LTestVld *> tests;
-    
+
     WsjcppValidatorJWT *pValidator = new WsjcppValidatorJWT();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjJ9.tbDepxpstvGdW8TC3G8zg4B6rUYAOvfzdceoH48wgRQ", true));
@@ -38,8 +34,10 @@ bool UnitTestValidatorJwt::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorJwt::doAfterTest() {
+    return true;
+}

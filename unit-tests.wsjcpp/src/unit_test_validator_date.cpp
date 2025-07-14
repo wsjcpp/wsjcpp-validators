@@ -9,15 +9,11 @@ UnitTestValidatorDate::UnitTestValidatorDate()
     : WsjcppUnitTestBase("UnitTestValidatorDate") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorDate::init() {
-    // nothing
+bool UnitTestValidatorDate::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorDate::run() {
+void UnitTestValidatorDate::executeTest() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -28,7 +24,7 @@ bool UnitTestValidatorDate::run() {
         int m_bExpectedResult;
     };
     std::vector<LTestVld *> tests;
-    
+
     WsjcppValidatorDate *pValidator = new WsjcppValidatorDate();
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("2020-01-01", true));
@@ -47,8 +43,10 @@ bool UnitTestValidatorDate::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorDate::doAfterTest() {
+    return true;
+}

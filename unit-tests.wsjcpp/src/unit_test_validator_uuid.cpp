@@ -9,15 +9,11 @@ UnitTestValidatorUuid::UnitTestValidatorUuid()
     : WsjcppUnitTestBase("UnitTestValidatorUuid") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorUuid::init() {
-    // nothing
+bool UnitTestValidatorUuid::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorUuid::run() {
+void UnitTestValidatorUuid::executeTest() {
     bool bTestSuccess = true;
 
     struct LTestVld {
@@ -40,8 +36,10 @@ bool UnitTestValidatorUuid::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidatorUUID->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorUuid::doAfterTest() {
+    return true;
+}

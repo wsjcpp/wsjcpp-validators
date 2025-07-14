@@ -7,8 +7,9 @@
 class UnitTestValidatorIntegerMaxValue : public WsjcppUnitTestBase {
     public:
         UnitTestValidatorIntegerMaxValue();
-        virtual void init() override;
-        virtual bool run() override;
+        virtual bool doBeforeTest() override;
+        virtual void executeTest() override;
+        virtual bool doAfterTest() override;
 };
 
 #endif // UNIT_TEST_VALIDATOR_INTEGER_MAX_VALUE_H

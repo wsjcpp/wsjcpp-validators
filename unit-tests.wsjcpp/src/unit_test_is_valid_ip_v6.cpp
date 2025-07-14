@@ -9,15 +9,11 @@ UnitTestisValidIpV6::UnitTestisValidIpV6()
     : WsjcppUnitTestBase("UnitTestisValidIpV6") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestisValidIpV6::init() {
-    // nothing
+bool UnitTestisValidIpV6::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestisValidIpV6::run() {
+void UnitTestisValidIpV6::executeTest() {
     struct TestIPv6 {
         TestIPv6(const std::string &sIPv6, bool bExpected) :
             m_sIPv6(sIPv6), m_bExpected(bExpected) {
@@ -25,7 +21,6 @@ bool UnitTestisValidIpV6::run() {
             };
         std::string m_sIPv6;
         bool m_bExpected;
-        
     };
     std::vector<TestIPv6> vIPv6s;
     vIPv6s.push_back(TestIPv6("3FFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF", true));
@@ -39,14 +34,16 @@ bool UnitTestisValidIpV6::run() {
     vIPv6s.push_back(TestIPv6("100.0.0.x", false));
     vIPv6s.push_back(TestIPv6("10033.1289.0.0", false));
     vIPv6s.push_back(TestIPv6("10033.1289.0.0.0.0.0", false));
-    
+
     bool bTestSuccess = true;
     for (int i = 0; i < vIPv6s.size(); i++) {
         TestIPv6 t = vIPv6s[i];
         std::string sError;
         bool bGotResult = WsjcppValidators::isValidIPv6(t.m_sIPv6, sError);
-        compareB(bTestSuccess, "Test[" + t.m_sIPv6 + ", error = " + sError + "]", bGotResult, t.m_bExpected);
+        compare("Test[" + t.m_sIPv6 + ", error = " + sError + "]", bGotResult, t.m_bExpected);
     }
-    return bTestSuccess;
 }
 
+bool UnitTestisValidIpV6::doAfterTest() {
+    return true;
+}
