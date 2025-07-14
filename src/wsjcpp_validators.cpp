@@ -638,6 +638,17 @@ bool WsjcppValidatorURL::isValid(const std::string &sValue,
 }
 
 // ----------------------------------------------------------------------
+// WsjcppValidatorDomainName
+
+WsjcppValidatorDomainName::WsjcppValidatorDomainName() : WsjcppValidatorStringBase("domain_name") {
+  TAG = "WsjcppValidatorDomainName";
+}
+
+bool WsjcppValidatorDomainName::isValid(const std::string &sValue, std::string &sError) {
+    return WsjcppValidators::isValidDomainName(sValue, sError);
+}
+
+// ----------------------------------------------------------------------
 // WsjcppValidatorBase64
 
 WsjcppValidatorBase64::WsjcppValidatorBase64()
