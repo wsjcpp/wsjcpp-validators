@@ -7,8 +7,9 @@
 class UnitTestValidatorRegExp : public WsjcppUnitTestBase {
     public:
         UnitTestValidatorRegExp();
-        virtual void init();
-        virtual bool run();
+        virtual bool doBeforeTest() override;
+        virtual void executeTest() override;
+        virtual bool doAfterTest() override;
 };
 
 #endif // UNIT_TEST_VALIDATOR_REG_EXP_H

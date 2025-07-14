@@ -9,15 +9,11 @@ UnitTestValidatorStringLength::UnitTestValidatorStringLength()
     : WsjcppUnitTestBase("UnitTestValidatorStringLength") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorStringLength::init() {
-    // nothing
+bool UnitTestValidatorStringLength::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorStringLength::run() {
+void UnitTestValidatorStringLength::executeTest() {
      bool bTestSuccess = true;
 
     struct LTestVld {
@@ -43,9 +39,10 @@ bool UnitTestValidatorStringLength::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorStringLength::doAfterTest() {
+    return true;
+}

@@ -9,15 +9,11 @@ UnitTestValidatorUrl::UnitTestValidatorUrl()
     : WsjcppUnitTestBase("UnitTestValidatorUrl") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorUrl::init() {
-    // nothing
+bool UnitTestValidatorUrl::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorUrl::run() {
+void UnitTestValidatorUrl::executeTest() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -28,7 +24,7 @@ bool UnitTestValidatorUrl::run() {
         int m_bExpectedResult;
     };
     std::vector<LTestVld *> tests;
-    
+
     WsjcppValidatorURL *pValidator = new WsjcppValidatorURL();
     tests.push_back(new LTestVld("https://google.com/?some=1&som24", true));
     tests.push_back(new LTestVld("https://google.com/?some=1&som24/", true));
@@ -70,7 +66,6 @@ bool UnitTestValidatorUrl::run() {
     tests.push_back(new LTestVld("http://1337.net", true));
     tests.push_back(new LTestVld("http://a.b-c.de", true));
     tests.push_back(new LTestVld("http://223.255.255.254", true));
-    
 
     // incorrect
     tests.push_back(new LTestVld("https://foo_bar.example.com/", false));
@@ -123,7 +118,7 @@ bool UnitTestValidatorUrl::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
         if (bGotResult != bExpectedResult) {
             nFailed++;
         }
@@ -131,6 +126,8 @@ bool UnitTestValidatorUrl::run() {
     if (nFailed > 0) {
         WsjcppLog::err(TAG, "Failed tests " + std::to_string(nFailed) + "/" + std::to_string(tests.size()));
     }
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorUrl::doAfterTest() {
+    return true;
+}

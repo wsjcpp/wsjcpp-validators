@@ -1,9 +1,9 @@
 wsjcpp_version: v0.0.1
 cmake_minimum_required: 3.0
-cmake_cxx_standard: 11
+cmake_cxx_standard: 17
 
 name: wsjcpp-validators
-version: v0.1.2
+version: v0.1.3
 description: Classes for data validation
 issues: https://github.com/wsjcpp/wsjcpp-validators/issues
 
@@ -13,7 +13,7 @@ keywords:
 
 required-libraries:
   - pthread
-  
+
 repositories:
   - type: main
     url: "https://github.com/wsjcpp/wsjcpp-validators"
@@ -21,13 +21,6 @@ repositories:
 authors:
   - name: Evgenii Sopov
     email: mrseakg@gmail.com
-
-dependencies:
-  - name: "wsjcpp-core"
-    version: "v0.1.7"
-    url: "https://github.com/wsjcpp/wsjcpp-core:master"
-    origin: "https://github.com/"
-    installation-dir: "./src.wsjcpp/wsjcpp_core"
 
 distribution:
   - source-file: "src/wsjcpp_validators.h"
@@ -73,3 +66,12 @@ unit-tests:
       description: "Test validator"
     - name: "ValidatorIntegerMaxValue"
       description: "Test validator"
+
+dependencies:
+  - name: "wsjcpp-core"
+    version: "v0.2.3"
+    url: "https://github.com/wsjcpp/wsjcpp-core:master"
+    origin: "https://github.com/"
+    installation-dir: "./src.wsjcpp/wsjcpp_core"
+    installation-datetime: "Mon, 14 Jul 2025 16:38:16 GMT"
+

@@ -7,8 +7,9 @@
 class UnitTestValidatorUuid : public WsjcppUnitTestBase {
     public:
         UnitTestValidatorUuid();
-        virtual void init();
-        virtual bool run();
+        virtual bool doBeforeTest() override;
+        virtual void executeTest() override;
+        virtual bool doAfterTest() override;
 };
 
 #endif // UNIT_TEST_VALIDATOR_UUID_H

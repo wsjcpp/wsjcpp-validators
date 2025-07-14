@@ -9,15 +9,11 @@ UnitTestValidatorRegExp::UnitTestValidatorRegExp()
     : WsjcppUnitTestBase("UnitTestValidatorRegExp") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorRegExp::init() {
-    // nothing
+bool UnitTestValidatorRegExp::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorRegExp::run() {
+void UnitTestValidatorRegExp::executeTest() {
     bool bTestSuccess = true;
     struct LTestVld {
         LTestVld(std::string sValue, bool bExpectedResult) {
@@ -28,7 +24,7 @@ bool UnitTestValidatorRegExp::run() {
         int m_bExpectedResult;
     };
     std::vector<LTestVld *> tests;
-    
+
     WsjcppValidatorStringRegexpBase *pValidator = new WsjcppValidatorStringRegexpBase("simpleregexp", "^[A-Z]*$");
     tests.push_back(new LTestVld("some", false));
     tests.push_back(new LTestVld("ABCD", true));
@@ -38,8 +34,10 @@ bool UnitTestValidatorRegExp::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorRegExp::doAfterTest() {
+    return true;
+}

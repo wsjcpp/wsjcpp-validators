@@ -7,8 +7,9 @@
 class UnitTestisValidIpV4 : public WsjcppUnitTestBase {
     public:
         UnitTestisValidIpV4();
-        virtual void init();
-        virtual bool run();
+        virtual bool doBeforeTest() override;
+        virtual void executeTest() override;
+        virtual bool doAfterTest() override;
 };
 
 #endif // UNIT_TEST_IS_VALID_IP_V4_H

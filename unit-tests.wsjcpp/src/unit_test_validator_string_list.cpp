@@ -9,15 +9,11 @@ UnitTestValidatorStringList::UnitTestValidatorStringList()
     : WsjcppUnitTestBase("UnitTestStringList") {
 }
 
-// ---------------------------------------------------------------------
-
-void UnitTestValidatorStringList::init() {
-    // nothing
+bool UnitTestValidatorStringList::doBeforeTest() {
+    return true;
 }
 
-// ---------------------------------------------------------------------
-
-bool UnitTestValidatorStringList::run() {
+void UnitTestValidatorStringList::executeTest() {
     bool bTestSuccess = true;
 
     struct LTestVld {
@@ -43,9 +39,10 @@ bool UnitTestValidatorStringList::run() {
         bool bExpectedResult = tests[i]->m_bExpectedResult;
         std::string sError = "";
         bool bGotResult = pValidator->isValid(sValue, sError);
-        compareB(bTestSuccess, "Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
+        compare("Test '" + sValue + "' error: " + sError, bGotResult, bExpectedResult);
     }
-
-    return bTestSuccess;
 }
 
+bool UnitTestValidatorStringList::doAfterTest() {
+    return true;
+}
