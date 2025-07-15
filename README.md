@@ -2,6 +2,33 @@
 
 [![Build Status](https://api.travis-ci.com/wsjcpp/wsjcpp-validators.svg?branch=master)](https://travis-ci.com/wsjcpp/wsjcpp-validators) [![Github Stars](https://img.shields.io/github/stars/wsjcpp/wsjcpp-validators.svg?label=github%20%E2%98%85)](https://github.com/wsjcpp/wsjcpp-validators/stargazers) [![Github Stars](https://img.shields.io/github/contributors/wsjcpp/wsjcpp-validators.svg)](https://github.com/wsjcpp/wsjcpp-validators/) [![Github Forks](https://img.shields.io/github/forks/wsjcpp/wsjcpp-validators.svg?label=github%20forks)](https://github.com/wsjcpp/wsjcpp-validators/network/members)
 
+## Integrate to your project
+
+Just include this files:
+
+- src.wsjcpp/wsjcpp_core/wsjcpp_core.cpp
+- src.wsjcpp/wsjcpp_core/wsjcpp_core.h
+- src/wsjcpp_validators.h
+- src/wsjcpp_validators.cpp
+
+## Integrate via wsjcpp
+
+```
+$ wsjcpp install "https://github.com/wsjcpp/wsjcpp-core:v0.2.3"
+$ wsjcpp install "https://github.com/wsjcpp/wsjcpp-validators:master"
+```
+
+## Example usage
+
+``` cpp
+
+WsjcppValidatorUUID *pValidatorUUID = new WsjcppValidatorUUID();
+std::string sError = "";
+if (!pValidatorUUID->isValid("abcdef01-ABCD-EF23-1000-000000000001", sError)) {
+    std::cout << sError << std::endl;
+}
+```
+
 Classes for data validation
 
 ## Completed classes
@@ -30,31 +57,6 @@ Classes for data validation
 - `WsjcppValidators::isValidBase64(const std::string &sValue, std::string &sError)`
 - `WsjcppValidators::isValidIPv4(const std::string &sValue, std::string &sError)`
 - `WsjcppValidators::isValidIPv6(const std::string &sValue, std::string &sError)`
-
-## Integrate to your project
-
-Just include this files:
-
-- src.wsjcpp/nlohmann_json/json.hpp
-- src/wsjcpp_validators.h
-- src/wsjcpp_validators.cpp
-
-## Integrate via wsjcpp
-
-```
-$ wsjcpp install https://github.com/wsjcpp/wsjcpp-validators:master
-```
-
-## Example usage 
-
-``` cpp
-
-WsjcppValidatorUUID *pValidatorUUID = new WsjcppValidatorUUID();
-std::string sError = "";
-if (!pValidatorUUID->isValid("abcdef01-ABCD-EF23-1000-000000000001", sError)) {
-    std::cout << sError << std::endl;
-}
-```
 
 ## Example for your implementations
 
