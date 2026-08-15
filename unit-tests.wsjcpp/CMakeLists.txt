@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 project(unit-tests C CXX)
-add_definitions(-DWSJCPP_APP_VERSION="ut-v0.1.3")
+add_definitions(-DWSJCPP_APP_VERSION="ut-v0.1.4")
 add_definitions(-DWSJCPP_APP_NAME="unit-tests-wsjcpp-validators")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -27,7 +27,7 @@ list (APPEND WSJCPP_SOURCES "${CMAKE_SOURCE_DIR}/../src.wsjcpp/wsjcpp_core/wsjcp
 list (APPEND WSJCPP_SOURCES "${CMAKE_SOURCE_DIR}/../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests.h")
 list (APPEND WSJCPP_SOURCES "${CMAKE_SOURCE_DIR}/../src.wsjcpp/wsjcpp_core/wsjcpp_unit_tests_main.cpp")
 
-# wsjcpp-validators:v0.1.3
+# wsjcpp-validators:v0.1.4
 list (APPEND WSJCPP_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../src")
 list (APPEND WSJCPP_SOURCES "${CMAKE_SOURCE_DIR}/../src/wsjcpp_validators.h")
 list (APPEND WSJCPP_SOURCES "${CMAKE_SOURCE_DIR}/../src/wsjcpp_validators.cpp")
