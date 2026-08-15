@@ -1,7 +1,7 @@
 wsjcpp-validators
 tmp/*
-.vscode
-!.vscode/setting.json
+.vscode/*
+!/.vscode/settings.json
 
 # Vim temp files
 *.swp
