@@ -533,7 +533,7 @@ bool WsjcppValidatorURL::isValid(const std::string &sValue,
     sError = "Must contain at least one dot";
     return false;
   }
-  std::string sProtocol = WsjcppCore::extractURLProtocol(sValue);
+  std::string sProtocol = wsjcpp::extract_url_protocol(sValue);
   if (!WsjcppValidators::isValidURLProtocol(sProtocol, sError)) {
     return false;
   }

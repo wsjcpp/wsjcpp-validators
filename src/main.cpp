@@ -31,11 +31,11 @@ SOFTWARE.
 int main(int argc, char* argv[]) {
     std::string TAG = "MAIN";
 
-    if (!WsjcppCore::dirExists(".wsjcpp")) {
+    if (!wsjcpp::dir_exists(".wsjcpp")) {
         WsjcppCore::makeDir(".wsjcpp");
     }
     std::string appLogPath = ".wsjcpp/logs";
-    if (!WsjcppCore::dirExists(appLogPath)) {
+    if (!wsjcpp::dir_exists(appLogPath)) {
         WsjcppCore::makeDir(appLogPath);
     }
     WsjcppLog::setPrefixLogFile("wsjcpp_validators");
