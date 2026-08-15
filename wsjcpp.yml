@@ -23,10 +23,10 @@ authors:
     email: mrseakg@gmail.com
 
 distribution:
-  - source-file: "src/wsjcpp_validators.h"
+  - source-file: "src/wsjcpp_validators/wsjcpp_validators.h"
     target-file: "wsjcpp_validators.h"
     type: "source-code"
-  - source-file: "src/wsjcpp_validators.cpp"
+  - source-file: "src/wsjcpp_validators/wsjcpp_validators.cpp"
     target-file: "wsjcpp_validators.cpp"
     type: "source-code"
 

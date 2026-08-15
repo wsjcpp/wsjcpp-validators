@@ -13,9 +13,10 @@ set(EXECUTABLE_OUTPUT_PATH ${wsjcpp-validators_SOURCE_DIR})
 
 # include header dirs
 list (APPEND WSJCPP_INCLUDE_DIRS "src")
+list (APPEND WSJCPP_INCLUDE_DIRS "src/wsjcpp_validators")
 
-list (APPEND WSJCPP_SOURCES "src/wsjcpp_validators.h")
-list (APPEND WSJCPP_SOURCES "src/wsjcpp_validators.cpp")
+list (APPEND WSJCPP_SOURCES "src/wsjcpp_validators/wsjcpp_validators.h")
+list (APPEND WSJCPP_SOURCES "src/wsjcpp_validators/wsjcpp_validators.cpp")
 list (APPEND WSJCPP_SOURCES "src/main.cpp")
 
 include_directories(${WSJCPP_INCLUDE_DIRS})
