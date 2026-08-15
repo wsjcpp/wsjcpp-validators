@@ -30,18 +30,17 @@ SOFTWARE.
 
 enum WsjcppValidatorType { WSJCPP_VALIDATOR_STRING, WSJCPP_VALIDATOR_INTEGER, WSJCPP_VALIDATOR_JSON };
 
-class WsjcppValidators {
-public:
-  static bool isValidDate(const std::string &sValue, std::string &sError);
-  static bool isValidTimeH24(const std::string &sValue, std::string &sError);
-  static bool isValidURLProtocol(const std::string &sValue, std::string &sError);
-  static bool isValidDomainName(const std::string &sValue, std::string &sError);
-  static bool isValidPort(const std::string &sValue, std::string &sError);
-  static bool isValidPort(int nValue, std::string &sError);
-  static bool isValidBase64(const std::string &sValue, std::string &sError);
-  static bool isValidIPv4(const std::string &sValue, std::string &sError);
-  static bool isValidIPv6(const std::string &sValue, std::string &sError);
-};
+namespace wsjcpp {
+
+  bool is_valid_date(const std::string &value, std::string &error);
+  bool is_valid_time_h24(const std::string &value, std::string &error);
+  bool is_valid_url_protocol(const std::string &value, std::string &error);
+  bool is_valid_domain_name(const std::string &value, std::string &error);
+  bool is_valid_port(const std::string &value, std::string &error);
+  bool is_valid_port(int nValue, std::string &error);
+  bool is_valid_base64(const std::string &value, std::string &error);
+
+} // namespace wsjcpp
 
 /*
 // ----------------------------------------------------------------------
@@ -50,7 +49,7 @@ class WsjcppValidatorBase {
     public:
         WsjcppValidatorBase(const std::string &sTypeName, WsjcppValidatorType
 nValidatorType); virtual WsjcppValidatorType getBaseType(); virtual std::string
-getTypeName(); virtual bool isValid(const std::string &sValue, std::string
+getTypeName(); virtual bool isValid(const std::string &value, std::string
 &sError) = 0; protected: std::string TAG; private: std::string m_sTypeName;
 };
 
@@ -61,7 +60,7 @@ public:
   WsjcppValidatorStringBase(const std::string &typeName);
   virtual WsjcppValidatorType getBaseType();
   virtual std::string getTypeName();
-  virtual bool isValid(const std::string &sValue, std::string &sError) = 0;
+  virtual bool isValid(const std::string &value, std::string &sError) = 0;
 
 protected:
   std::string TAG;
@@ -73,7 +72,7 @@ private:
 class WsjcppValidatorStringRegexpBase : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorStringRegexpBase(const std::string &typeName, const std::string &sValidator);
-  virtual bool isValid(const std::string &sValue, std::string &sError) override;
+  virtual bool isValid(const std::string &value, std::string &sError) override;
 
 private:
   std::string m_sValidator;
@@ -83,7 +82,7 @@ private:
 class WsjcppValidatorStringListBase : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorStringListBase(const std::string &typeName, const std::vector<std::string> &vListValues);
-  virtual bool isValid(const std::string &sValue, std::string &sError) override;
+  virtual bool isValid(const std::string &value, std::string &sError) override;
 
 private:
   std::vector<std::string> m_vListValues;
@@ -102,7 +101,7 @@ public:
 class WsjcppValidatorStringLength : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorStringLength(int nMinLength, int nMaxLength);
-  virtual bool isValid(const std::string &sValue, std::string &sError);
+  virtual bool isValid(const std::string &value, std::string &sError);
 
 private:
   std::string TAG;
@@ -118,7 +117,7 @@ public:
 class WsjcppValidatorDate : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorDate();
-  virtual bool isValid(const std::string &sValue, std::string &sError);
+  virtual bool isValid(const std::string &value, std::string &sError);
 
 private:
   std::string TAG;
@@ -127,7 +126,7 @@ private:
 class WsjcppValidatorTimeH24 : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorTimeH24();
-  virtual bool isValid(const std::string &sValue, std::string &sError);
+  virtual bool isValid(const std::string &value, std::string &sError);
 
 private:
   std::string TAG;
@@ -136,7 +135,7 @@ private:
 class WsjcppValidatorDateTime : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorDateTime();
-  virtual bool isValid(const std::string &sValue, std::string &sError);
+  virtual bool isValid(const std::string &value, std::string &sError);
 
 private:
   std::string TAG;
@@ -145,7 +144,7 @@ private:
 class WsjcppValidatorURL : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorURL();
-  virtual bool isValid(const std::string &sValue, std::string &sError);
+  virtual bool isValid(const std::string &value, std::string &sError);
 
 private:
   std::string TAG;
@@ -155,7 +154,7 @@ private:
 class WsjcppValidatorDomainName : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorDomainName();
-  virtual bool isValid(const std::string &sValue, std::string &sError);
+  virtual bool isValid(const std::string &value, std::string &sError);
 
 private:
   std::string TAG;
@@ -164,7 +163,7 @@ private:
 class WsjcppValidatorBase64 : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorBase64();
-  virtual bool isValid(const std::string &sValue, std::string &sError);
+  virtual bool isValid(const std::string &value, std::string &sError);
 
 private:
   std::string TAG;
@@ -173,7 +172,7 @@ private:
 class WsjcppValidatorNumber : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorNumber();
-  virtual bool isValid(const std::string &sValue, std::string &sError);
+  virtual bool isValid(const std::string &value, std::string &sError);
 
 private:
   std::string TAG;
@@ -182,7 +181,7 @@ private:
 class WsjcppValidatorHex : public WsjcppValidatorStringBase {
 public:
   WsjcppValidatorHex();
-  virtual bool isValid(const std::string &sValue, std::string &sError);
+  virtual bool isValid(const std::string &value, std::string &sError);
 
 private:
   std::string TAG;

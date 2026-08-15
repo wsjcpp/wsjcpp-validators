@@ -269,6 +269,9 @@ bool is_windows();
 std::string padding_right(const std::string &source, char pad_char, size_t length);
 std::string padding_left(const std::string &source, char pad_char, size_t length);
 
+bool is_valid_ip4(const std::string &value, std::string &error);
+bool is_valid_ip6(const std::string &value, std::string &error);
+
 } // namespace wsjcpp
 
 #endif // WSJCPP_CORE_H

@@ -26,39 +26,41 @@ SOFTWARE.
 #include <arpa/inet.h>
 #include <wsjcpp_core.h>
 
-bool WsjcppValidators::isValidDate(const std::string &sValue, std::string &sError) {
-  int nSize = sValue.size();
+namespace wsjcpp {
+
+bool is_valid_date(const std::string &value, std::string &error) {
+  int nSize = value.size();
   if (nSize != 10) {
-    sError = "Invalid size format expected length 10";
+    error = "Invalid size format expected length 10";
     return false;
   }
 
   for (int i = 0; i < 10; i++) {
-    char c = sValue[i];
+    char c = value[i];
     if (i == 4 || i == 7) {
       if (c != '-') {
-        sError = "Expected '-' in " + std::to_string(i) + " position, but got '";
-        sError += c;
-        sError += "'";
+        error = "Expected '-' in " + std::to_string(i) + " position, but got '";
+        error += c;
+        error += "'";
         return false;
       }
       continue;
     }
     if (c < '0' || c > '9') {
-      sError = "Unexpected char '";
-      sError += c;
-      sError += "' in " + std::to_string(i) + " position";
+      error = "Unexpected char '";
+      error += c;
+      error += "' in " + std::to_string(i) + " position";
       return false;
     }
   }
   // 2020-01-01
-  std::string sYear = sValue.substr(0, 4);
+  std::string sYear = value.substr(0, 4);
   int nYear = std::atoi(sYear.c_str());
 
-  std::string sMonth = sValue.substr(5, 2);
+  std::string sMonth = value.substr(5, 2);
   int nMonth = std::atoi(sMonth.c_str());
   if (nMonth < 1 || nMonth > 12) {
-    sError = "Invalid value nunber of month '" + std::to_string(nMonth) + "' expected 01..12";
+    error = "Invalid value number of month '" + std::to_string(nMonth) + "' expected 01..12";
     return false;
   }
 
@@ -73,72 +75,72 @@ bool WsjcppValidators::isValidDate(const std::string &sValue, std::string &sErro
     nMaxDay = 28;
   }
 
-  std::string sDay = sValue.substr(8, 2);
+  std::string sDay = value.substr(8, 2);
   int nDay = std::atoi(sDay.c_str());
   if (nDay < 1 || nDay > nMaxDay) {
-    sError = "Invalid value number of day '" + std::to_string(nDay) + "' expected 01.." + std::to_string(nMaxDay);
+    error = "Invalid value number of day '" + std::to_string(nDay) + "' expected 01.." + std::to_string(nMaxDay);
     return false;
   }
   return true;
 }
 
-bool WsjcppValidators::isValidTimeH24(const std::string &sValue, std::string &sError) {
-  int nSize = sValue.size();
+bool is_valid_time_h24(const std::string &value, std::string &error) {
+  int nSize = value.size();
   if (nSize != 8) {
-    sError = "Invalid size format expected length 8";
+    error = "Invalid size format expected length 8";
     return false;
   }
 
   for (int i = 0; i < 8; i++) {
-    char c = sValue[i];
+    char c = value[i];
     if (i == 2 || i == 5) {
       if (c != ':') {
-        sError = "Expected ':' in " + std::to_string(i) + " position, but got '";
-        sError += c;
-        sError += "'";
+        error = "Expected ':' in " + std::to_string(i) + " position, but got '";
+        error += c;
+        error += "'";
         return false;
       }
       continue;
     }
     if (c < '0' || c > '9') {
-      sError = "Unexpected char '";
-      sError += c;
-      sError += "' in " + std::to_string(i) + " position";
+      error = "Unexpected char '";
+      error += c;
+      error += "' in " + std::to_string(i) + " position";
       return false;
     }
   }
 
-  std::string sHours = sValue.substr(0, 2);
+  std::string sHours = value.substr(0, 2);
   int nHours = std::atoi(sHours.c_str());
   if (nHours > 23) {
-    sError = "Invalid value of hours '" + std::to_string(nHours) + "' expected 00..23";
+    error = "Invalid value of hours '" + std::to_string(nHours) + "' expected 00..23";
     return false;
   }
-  std::string sMinutes = sValue.substr(3, 2);
+  std::string sMinutes = value.substr(3, 2);
   int nMinutes = std::atoi(sMinutes.c_str());
   if (nMinutes > 59) {
-    sError = "Invalid value of minutes '" + std::to_string(nMinutes) + "' expected 00..59";
+    error = "Invalid value of minutes '" + std::to_string(nMinutes) + "' expected 00..59";
     return false;
   }
 
-  std::string sSeconds = sValue.substr(6, 2);
+  std::string sSeconds = value.substr(6, 2);
   int nSeconds = std::atoi(sSeconds.c_str());
   if (nSeconds > 59) {
-    sError = "Invalid value of seconds '" + std::to_string(nSeconds) + "' expected 00..59";
+    error = "Invalid value of seconds '" + std::to_string(nSeconds) + "' expected 00..59";
     return false;
   }
   return true;
 }
 
-bool WsjcppValidators::isValidDomainName(const std::string &sValue, std::string &sError) {
+bool is_valid_domain_name(const std::string &value, std::string &error) {
   std::vector<std::string> vSubDomains;
   std::string sTmpDomain = "";
-  int nAddressLen = sValue.size();
+  int nAddressLen = value.size();
   char cPrev = 0;
   for (int i = 0; i < nAddressLen; i++) {
-    char c = sValue[i];
+    char c = value[i];
     if (i == 0 && c == '.') {
-      sError = "Domain Name '" + sValue + "' could not be start on '.'";
+      error = "Domain Name '" + value + "' could not be start on '.'";
       return false;
     }
     if (c == '.') {
@@ -147,24 +149,24 @@ bool WsjcppValidators::isValidDomainName(const std::string &sValue, std::string 
         sTmpDomain = "";
         continue;
       } else {
-        sError = "Domain Name '" + sValue + "' could not contains '..'";
+        error = "Domain Name '" + value + "' could not contains '..'";
         return false;
       }
     }
     if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '-') {
       sTmpDomain += c;
       if (cPrev == '-' && c == cPrev) {
-        sError = "Domain Name '" + sValue + "' could not two times in a row '";
-        sError += c;
-        sError += c;
-        sError += "'";
+        error = "Domain Name '" + value + "' could not two times in a row '";
+        error += c;
+        error += c;
+        error += "'";
         return false;
       }
       cPrev = c;
     } else {
-      sError = "Domain Name '" + sValue + "' contains unexpected '";
-      sError += c;
-      sError += "'";
+      error = "Domain Name '" + value + "' contains unexpected '";
+      error += c;
+      error += "'";
       return false;
     }
   }
@@ -173,23 +175,23 @@ bool WsjcppValidators::isValidDomainName(const std::string &sValue, std::string 
     vSubDomains.push_back(sTmpDomain);
     sTmpDomain = "";
   } else {
-    sError = "Domain Name '" + sValue + "' could not contains '.' on end";
+    error = "Domain Name '" + value + "' could not contains '.' on end";
     return false;
   }
 
   if (vSubDomains.size() < 2) {
-    sError = "Domain Name '" + sValue + "' must contains least one dot";
+    error = "Domain Name '" + value + "' must contains least one dot";
     return false;
   }
   std::string sRootDomain = vSubDomains[vSubDomains.size() - 1];
   if (sRootDomain.size() < 2) {
-    sError = "Domain Name '" + sValue + "' has wrong root domain '" + sRootDomain + "' length must be more then 1";
+    error = "Domain Name '" + value + "' has wrong root domain '" + sRootDomain + "' length must be more then 1";
     return false;
   }
   for (int i = 0; i < sRootDomain.size(); i++) {
     char c = sRootDomain[i];
     if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z')) {
-      sError = "Domain Name '" + sValue + "' has wrong root domain '" + sRootDomain + "' must have only chars";
+      error = "Domain Name '" + value + "' has wrong root domain '" + sRootDomain + "' must have only chars";
       return false;
     }
   }
@@ -198,53 +200,53 @@ bool WsjcppValidators::isValidDomainName(const std::string &sValue, std::string 
     std::string sDomain = vSubDomains[i];
     char c = sDomain[0];
     if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9')) {
-      sError = "Subdomain '" + sDomain + "' could not start on '";
-      sError += c;
-      sError += "'";
+      error = "Subdomain '" + sDomain + "' could not start on '";
+      error += c;
+      error += "'";
       return false;
     }
     c = sDomain[sDomain.size() - 1];
     if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9')) {
-      sError = "Subdomain '" + sDomain + "' could not end on '";
-      sError += c;
-      sError += "'";
+      error = "Subdomain '" + sDomain + "' could not end on '";
+      error += c;
+      error += "'";
       return false;
     }
   }
   return true;
 }
 
-bool WsjcppValidators::isValidPort(const std::string &sValue, std::string &sError) {
-  int nPort = std::atoi(sValue.c_str());
-  return WsjcppValidators::isValidPort(nPort, sError);
+bool is_valid_port(const std::string &value, std::string &error) {
+  int nPort = std::atoi(value.c_str());
+  return wsjcpp::is_valid_port(nPort, error);
 }
 
-bool WsjcppValidators::isValidPort(int nValue, std::string &sError) {
+bool is_valid_port(int nValue, std::string &error) {
   if (nValue < 1 || nValue > 65535) {
-    sError = "Port '" + std::to_string(nValue) + "' must be more then 0 and less then 65536";
+    error = "Port '" + std::to_string(nValue) + "' must be more then 0 and less then 65536";
     return false;
   }
   return true;
 }
 
-bool WsjcppValidators::isValidURLProtocol(const std::string &sValue, std::string &sError) {
-  if (sValue != "http" && sValue != "https" && sValue != "ws" && sValue != "wss" && sValue != "ftp" &&
-      sValue != "ssl") {
-    sError = "Unexpected protocol '" + sValue + "'";
+bool is_valid_url_protocol(const std::string &value, std::string &error) {
+  if (value != "http" && value != "https" && value != "ws" && value != "wss" && value != "ftp" &&
+      value != "ssl") {
+    error = "Unexpected protocol '" + value + "'";
     return false;
   }
   return true;
 }
 
-bool WsjcppValidators::isValidBase64(const std::string &sValue, std::string &sError) {
-  int nSize = sValue.size();
+bool is_valid_base64(const std::string &value, std::string &error) {
+  int nSize = value.size();
   if (nSize % 4 != 0) {
-    sError = "Value size must be a multiple of 4";
+    error = "Value size must be a multiple of 4";
     return false;
   }
   bool bLastChar = false;
   for (int i = 0; i < nSize; i++) {
-    char c = sValue[i];
+    char c = value[i];
     if (!bLastChar && c == '=') {
       bLastChar = true;
       continue;
@@ -254,65 +256,24 @@ bool WsjcppValidators::isValidBase64(const std::string &sValue, std::string &sEr
     }
 
     if (bLastChar && c != '=') {
-      sError = "Unexpected char '";
-      sError += c;
-      sError += "' after '=' in " + std::to_string(i) + " position";
+      error = "Unexpected char '";
+      error += c;
+      error += "' after '=' in " + std::to_string(i) + " position";
       return false;
     }
 
     if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9') && c != '+' && c != '/') {
-      sError = "Unexpected char '";
-      sError += c;
-      sError += "' in " + std::to_string(i) + " position";
+      error = "Unexpected char '";
+      error += c;
+      error += "' in " + std::to_string(i) + " position";
       return false;
     }
   }
   return true;
 }
 
-bool WsjcppValidators::isValidIPv4(const std::string &sValue, std::string &sError) {
-  int n = 0;
-  std::string s[4] = {"", "", "", ""};
-  for (int i = 0; i < sValue.length(); i++) {
-    char c = sValue[i];
-    if (n > 3) {
-      sError = "Groups number must be less than 5 (like '0.0.0.0')";
-      return false;
-    }
-    if (c >= '0' && c <= '9') {
-      s[n] += c;
-    } else if (c == '.') {
-      n++;
-    } else {
-      sError = "Unexpected character '";
-      sError += c;
-      sError += "'";
-      return false;
-    }
-  }
-  for (int i = 0; i < 4; i++) {
-    if (s[i].length() > 3) {
-      sError = "Value '" + s[i] + "' could not contains more than 3 digits in a row";
-      return false;
-    }
-    int p = std::stoi(s[i]);
-    if (p > 255 || p < 0) {
-      sError = "Value '" + std::to_string(p) + "' must be 0..255";
-      return false;
-    }
-  }
-  return true;
-}
 
-bool WsjcppValidators::isValidIPv6(const std::string &sValue, std::string &sError) {
-  // TODO redesign without arpa
-  unsigned char buf[sizeof(struct in6_addr)];
-  bool isValid = inet_pton(AF_INET6, sValue.c_str(), buf);
-  if (!isValid) {
-    sError = "Format of ipv6 invalid";
-  }
-  return isValid;
-}
+} // namespace wsjcpp
 
 // ----------------------------------------------------------------------
 // WsjcppValidatorStringBase
@@ -341,9 +302,9 @@ WsjcppValidatorStringRegexpBase::WsjcppValidatorStringRegexpBase(const std::stri
   m_rxValidator = std::regex(sValidator);
 }
 
-bool WsjcppValidatorStringRegexpBase::isValid(const std::string &sValue, std::string &sError) {
-  if (!std::regex_match(sValue, m_rxValidator)) {
-    sError = getTypeName() + " - Value must match regular expression " + m_sValidator;
+bool WsjcppValidatorStringRegexpBase::isValid(const std::string &value, std::string &error) {
+  if (!std::regex_match(value, m_rxValidator)) {
+    error = getTypeName() + " - Value must match regular expression " + m_sValidator;
     return false;
   }
   return true;
@@ -358,18 +319,18 @@ WsjcppValidatorStringListBase::WsjcppValidatorStringListBase(const std::string &
   m_vListValues = vListValues;
 }
 
-bool WsjcppValidatorStringListBase::isValid(const std::string &sValue, std::string &sError) {
-  if (std::find(m_vListValues.begin(), m_vListValues.end(), sValue) != m_vListValues.end()) {
+bool WsjcppValidatorStringListBase::isValid(const std::string &value, std::string &error) {
+  if (std::find(m_vListValues.begin(), m_vListValues.end(), value) != m_vListValues.end()) {
     return true;
   }
-  sError = getTypeName() + " expected one of [";
+  error = getTypeName() + " expected one of [";
   for (int i = 0; i < m_vListValues.size(); i++) {
-    sError += "'" + m_vListValues[i] + "'";
+    error += "'" + m_vListValues[i] + "'";
     if (i < m_vListValues.size() - 1) {
-      sError += ", ";
+      error += ", ";
     }
   }
-  sError += "]";
+  error += "]";
   return false;
 }
 
@@ -392,23 +353,23 @@ WsjcppValidatorUUID::WsjcppValidatorUUID()
 }
 
 // ----------------------------------------------------------------------
-// WsjcppValidatorStringLenght
+// WsjcppValidatorStringLength
 
 WsjcppValidatorStringLength::WsjcppValidatorStringLength(int nMinLength, int nMaxLength)
     : WsjcppValidatorStringBase("string_length") {
-  TAG = "WsjcppValidatorStringLenght";
+  TAG = "WsjcppValidatorStringLength";
   m_nMinLength = nMinLength;
   m_nMaxLength = nMaxLength;
 }
 
-bool WsjcppValidatorStringLength::isValid(const std::string &sValue, std::string &sError) {
-  if (sValue.length() < m_nMinLength) {
-    sError = "Value must have more than " + std::to_string(m_nMinLength) + " simbols";
+bool WsjcppValidatorStringLength::isValid(const std::string &value, std::string &error) {
+  if (value.length() < m_nMinLength) {
+    error = "Value must have more than " + std::to_string(m_nMinLength) + " symbols";
     return false;
   }
 
-  if (sValue.length() > m_nMaxLength) {
-    sError = "Value must have less than " + std::to_string(m_nMaxLength) + " simbols";
+  if (value.length() > m_nMaxLength) {
+    error = "Value must have less than " + std::to_string(m_nMaxLength) + " symbols";
     return false;
   }
   return true;
@@ -431,8 +392,8 @@ WsjcppValidatorDate::WsjcppValidatorDate() : WsjcppValidatorStringBase("date") {
 
 // ----------------------------------------------------------------------
 
-bool WsjcppValidatorDate::isValid(const std::string &sValue, std::string &sError) {
-  return WsjcppValidators::isValidDate(sValue, sError);
+bool WsjcppValidatorDate::isValid(const std::string &value, std::string &error) {
+  return wsjcpp::is_valid_date(value, error);
 }
 
 // ----------------------------------------------------------------------
@@ -442,8 +403,8 @@ WsjcppValidatorTimeH24::WsjcppValidatorTimeH24() : WsjcppValidatorStringBase("ti
   TAG = "WsjcppValidatorTime";
 }
 
-bool WsjcppValidatorTimeH24::isValid(const std::string &sValue, std::string &sError) {
-  return WsjcppValidators::isValidTimeH24(sValue, sError);
+bool WsjcppValidatorTimeH24::isValid(const std::string &value, std::string &error) {
+  return wsjcpp::is_valid_time_h24(value, error);
 }
 
 // ----------------------------------------------------------------------
@@ -453,25 +414,25 @@ WsjcppValidatorDateTime::WsjcppValidatorDateTime() : WsjcppValidatorStringBase("
   TAG = "WsjcppValidatorDateTime";
 }
 
-bool WsjcppValidatorDateTime::isValid(const std::string &sValue, std::string &sError) {
-  int nSize = sValue.size();
+bool WsjcppValidatorDateTime::isValid(const std::string &value, std::string &error) {
+  int nSize = value.size();
   // '2020-01-01T00:00:00'
   if (nSize != 19) {
-    sError = "Invalid size format expected length 19";
+    error = "Invalid size format expected length 19";
     return false;
   }
-  std::string sDate = sValue.substr(0, 10);
-  if (!WsjcppValidators::isValidDate(sDate, sError)) {
+  std::string sDate = value.substr(0, 10);
+  if (!wsjcpp::is_valid_date(sDate, error)) {
     return false;
   }
-  if (sValue[10] != 'T') {
-    sError = "Expected 'T' in 10 position, but got '";
-    sError += sValue[10];
-    sError += "'";
+  if (value[10] != 'T') {
+    error = "Expected 'T' in 10 position, but got '";
+    error += value[10];
+    error += "'";
     return false;
   }
-  std::string sTime = sValue.substr(11, 8);
-  if (!WsjcppValidators::isValidTimeH24(sTime, sError)) {
+  std::string sTime = value.substr(11, 8);
+  if (!wsjcpp::is_valid_time_h24(sTime, error)) {
     return false;
   }
   return true;
@@ -485,30 +446,30 @@ WsjcppValidatorURL::WsjcppValidatorURL() : WsjcppValidatorStringBase("url") {
   m_rxLikeIPv4Format = std::regex("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$");
 }
 
-bool WsjcppValidatorURL::isValid(const std::string &sValue, std::string &sError) {
-  if (sValue.size() == 0) {
-    sError = "Value is empty";
+bool WsjcppValidatorURL::isValid(const std::string &value, std::string &error) {
+  if (value.size() == 0) {
+    error = "Value is empty";
     return false;
   }
-  if (sValue.find(".") == std::string::npos) {
-    sError = "Must contain at least one dot";
+  if (value.find(".") == std::string::npos) {
+    error = "Must contain at least one dot";
     return false;
   }
-  std::string sProtocol = wsjcpp::extract_url_protocol(sValue);
-  if (!WsjcppValidators::isValidURLProtocol(sProtocol, sError)) {
+  std::string sProtocol = wsjcpp::extract_url_protocol(value);
+  if (!wsjcpp::is_valid_url_protocol(sProtocol, error)) {
     return false;
   }
 
   int nStartPos = sProtocol.length() + 3;
   std::string sAuthorityAddressPath = "";
-  for (int i = nStartPos; i < sValue.size(); i++) {
-    char c = sValue[i];
+  for (int i = nStartPos; i < value.size(); i++) {
+    char c = value[i];
     if (c == '?') {
       break;
     }
     sAuthorityAddressPath += c;
   }
-  std::string sQuery = sValue.substr(sProtocol.length() + 3 + sAuthorityAddressPath.size());
+  std::string sQuery = value.substr(sProtocol.length() + 3 + sAuthorityAddressPath.size());
   std::string sAddressAndPath = sAuthorityAddressPath;
 
   int nPosAuthority = sAuthorityAddressPath.find("@");
@@ -518,10 +479,10 @@ bool WsjcppValidatorURL::isValid(const std::string &sValue, std::string &sError)
     sAddressAndPath = sAuthorityAddressPath.substr(nPosAuthority + 1);
   }
   if (sAuthority != "") {
-    // sError = "TODO check username and password sAuthority= [" + sAuthority +
+    // error = "TODO check username and password sAuthority= [" + sAuthority +
     // "]";
     // -.~_!$&'()*+,;=:%40:80%2f::::::
-    // WsjcppLog::warn(TAG, sError);
+    // WsjcppLog::warn(TAG, error);
     // return false;
   }
   std::string sAddress = sAddressAndPath;
@@ -533,7 +494,7 @@ bool WsjcppValidatorURL::isValid(const std::string &sValue, std::string &sError)
   }
 
   if (sAddress.size() == 0) {
-    sError = "Address could not be empty";
+    error = "Address could not be empty";
     return false;
   }
 
@@ -545,24 +506,24 @@ bool WsjcppValidatorURL::isValid(const std::string &sValue, std::string &sError)
   }
 
   if (sPort != "") {
-    if (!WsjcppValidators::isValidPort(sPort, sError)) {
+    if (!wsjcpp::is_valid_port(sPort, error)) {
       return false;
     }
   }
 
   if (std::regex_match(sAddress, m_rxLikeIPv4Format)) {
-    if (!WsjcppValidators::isValidIPv4(sAddress, sError)) {
+    if (!wsjcpp::is_valid_ip4(sAddress, error)) {
       return false;
     }
     if (sPort != "") {
       int nPort = std::atoi(sPort.c_str());
       if (nPort < 1 || nPort > 65535) {
-        sError = "Port '" + std::to_string(nPort) + "' must be more then 0 and less then 65536";
+        error = "Port '" + std::to_string(nPort) + "' must be more then 0 and less then 65536";
         return false;
       }
     }
   } else {
-    if (!WsjcppValidators::isValidDomainName(sAddress, sError)) {
+    if (!wsjcpp::is_valid_domain_name(sAddress, error)) {
       return false;
     }
   }
@@ -575,7 +536,7 @@ bool WsjcppValidatorURL::isValid(const std::string &sValue, std::string &sError)
     for (int i = 0; i < sPath.length(); i++) {
       char c = sPath[i];
       if (c == ' ') {
-        sError = "Path could not contains whitespace ' '";
+        error = "Path could not contains whitespace ' '";
         return false;
       }
     }
@@ -585,13 +546,13 @@ bool WsjcppValidatorURL::isValid(const std::string &sValue, std::string &sError)
     for (int i = 0; i < sQuery.length(); i++) {
       char c = sQuery[i];
       if (c == ' ') {
-        sError = "Query could not contains whitespace ' ' (must be encoded)";
+        error = "Query could not contains whitespace ' ' (must be encoded)";
         return false;
       }
     }
   }
 
-  // sError = "sAddressAndPath=[" + sAddressAndPath + "], , sAddress=[" +
+  // error = "sAddressAndPath=[" + sAddressAndPath + "], , sAddress=[" +
   // sAddress + "]";
   return true;
 }
@@ -603,8 +564,8 @@ WsjcppValidatorDomainName::WsjcppValidatorDomainName() : WsjcppValidatorStringBa
   TAG = "WsjcppValidatorDomainName";
 }
 
-bool WsjcppValidatorDomainName::isValid(const std::string &sValue, std::string &sError) {
-  return WsjcppValidators::isValidDomainName(sValue, sError);
+bool WsjcppValidatorDomainName::isValid(const std::string &value, std::string &error) {
+  return wsjcpp::is_valid_domain_name(value, error);
 }
 
 // ----------------------------------------------------------------------
@@ -616,8 +577,8 @@ WsjcppValidatorBase64::WsjcppValidatorBase64() : WsjcppValidatorStringBase("base
 
 // ----------------------------------------------------------------------
 
-bool WsjcppValidatorBase64::isValid(const std::string &sValue, std::string &sError) {
-  return WsjcppValidators::isValidBase64(sValue, sError);
+bool WsjcppValidatorBase64::isValid(const std::string &value, std::string &error) {
+  return wsjcpp::is_valid_base64(value, error);
 }
 
 // ----------------------------------------------------------------------
@@ -629,18 +590,18 @@ WsjcppValidatorNumber::WsjcppValidatorNumber() : WsjcppValidatorStringBase("numb
 
 // ----------------------------------------------------------------------
 
-bool WsjcppValidatorNumber::isValid(const std::string &sValue, std::string &sError) {
-  int nSize = sValue.size();
+bool WsjcppValidatorNumber::isValid(const std::string &value, std::string &error) {
+  int nSize = value.size();
   bool bHasOneAndMoreNumbers = false;
   for (int i = 0; i < nSize; i++) {
-    char c = sValue[i];
+    char c = value[i];
     if (c == '-' && i == 0) {
       continue;
     }
     if (c < '0' || c > '9') {
-      sError = "Unexpected char '";
-      sError += c;
-      sError += "' in " + std::to_string(i) + " position";
+      error = "Unexpected char '";
+      error += c;
+      error += "' in " + std::to_string(i) + " position";
       return false;
     }
     bHasOneAndMoreNumbers = true;
@@ -657,21 +618,21 @@ WsjcppValidatorHex::WsjcppValidatorHex() : WsjcppValidatorStringBase("hex") {
 
 // ----------------------------------------------------------------------
 
-bool WsjcppValidatorHex::isValid(const std::string &sValue, std::string &sError) {
-  int nSize = sValue.size();
+bool WsjcppValidatorHex::isValid(const std::string &value, std::string &error) {
+  int nSize = value.size();
   if (nSize == 0) {
-    sError = "Empty string";
+    error = "Empty string";
     return false;
   }
   for (int i = 0; i < nSize; i++) {
-    char c = sValue[i];
+    char c = value[i];
     if (c == '-' && i == 0) {
       continue;
     }
     if ((c < '0' || c > '9') && (c < 'a' || c > 'f') && (c < 'A' || c > 'F')) {
-      sError = "Unexpected char '";
-      sError += c;
-      sError += "' in " + std::to_string(i) + " position";
+      error = "Unexpected char '";
+      error += c;
+      error += "' in " + std::to_string(i) + " position";
       return false;
     }
   }
@@ -709,9 +670,9 @@ WsjcppValidatorIntegerMinValue::WsjcppValidatorIntegerMinValue(int nMinValue)
 
 // ----------------------------------------------------------------------
 
-bool WsjcppValidatorIntegerMinValue::isValid(int nValue, std::string &sError) {
+bool WsjcppValidatorIntegerMinValue::isValid(int nValue, std::string &error) {
   if (nValue < m_nMinValue) {
-    sError = "Value must be more or equal then " + std::to_string(m_nMinValue);
+    error = "Value must be more or equal then " + std::to_string(m_nMinValue);
     return false;
   }
   return true;
@@ -728,9 +689,9 @@ WsjcppValidatorIntegerMaxValue::WsjcppValidatorIntegerMaxValue(int nMaxValue)
 
 // ----------------------------------------------------------------------
 
-bool WsjcppValidatorIntegerMaxValue::isValid(int nValue, std::string &sError) {
+bool WsjcppValidatorIntegerMaxValue::isValid(int nValue, std::string &error) {
   if (nValue > m_nMaxValue) {
-    sError = "Value must be less or equal then " + std::to_string(m_nMaxValue);
+    error = "Value must be less or equal then " + std::to_string(m_nMaxValue);
     return false;
   }
   return true;

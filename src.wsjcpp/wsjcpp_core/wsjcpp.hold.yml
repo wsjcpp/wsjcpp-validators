@@ -21,11 +21,11 @@ distribution:
   - source-file: src/wsjcpp_core/wsjcpp_core.cpp
     target-file: wsjcpp_core.cpp
     type: "source-code"
-    sha1: "791a6b5dfd94d411494a989ea366b3bbe5f776aa"
+    sha1: "25926b911a674cf969b94f29e4480f242b31094a"
   - source-file: src/wsjcpp_core/wsjcpp_core.h
     target-file: wsjcpp_core.h
     type: "source-code" # todo must be header-file
-    sha1: "d8a139d0a171059d7d12763b043bc6d33b3f08dc"
+    sha1: "01aa9c5363db7523efb2dad5b32f90bdba1c16e1"
   - source-file: "src/wsjcpp_core/wsjcpp_unit_tests.cpp"
     target-file: "wsjcpp_unit_tests.cpp"
     type: "unit-tests"

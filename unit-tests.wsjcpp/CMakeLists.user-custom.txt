@@ -1,4 +1,0 @@
-## You can here write some custom includes
-
-# wsjcpp-validators:v0.1.4
-list (APPEND WSJCPP_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../src/wsjcpp_validators")

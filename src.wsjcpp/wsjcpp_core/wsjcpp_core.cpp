@@ -1357,4 +1357,49 @@ std::string padding_left(const std::string &source, char pad_char, size_t length
   return ret + source;
 }
 
+
+bool is_valid_ip4(const std::string &value, std::string &error) {
+  int n = 0;
+  std::string s[4] = {"", "", "", ""};
+  for (int i = 0; i < value.length(); i++) {
+    char c = value[i];
+    if (n > 3) {
+      error = "Groups number must be less than 5 (like '0.0.0.0')";
+      return false;
+    }
+    if (c >= '0' && c <= '9') {
+      s[n] += c;
+    } else if (c == '.') {
+      n++;
+    } else {
+      error = "Unexpected character '";
+      error += c;
+      error += "'";
+      return false;
+    }
+  }
+  for (int i = 0; i < 4; i++) {
+    if (s[i].length() > 3) {
+      error = "Value '" + s[i] + "' could not contains more than 3 digits in a row";
+      return false;
+    }
+    int p = std::stoi(s[i]);
+    if (p > 255 || p < 0) {
+      error = "Value '" + std::to_string(p) + "' must be 0..255";
+      return false;
+    }
+  }
+  return true;
+}
+
+bool is_valid_ip6(const std::string &value, std::string &error) {
+  // TODO redesign without arpa
+  unsigned char buf[sizeof(struct in6_addr)];
+  bool isValid = inet_pton(AF_INET6, value.c_str(), buf);
+  if (!isValid) {
+    error = "Format of ipv6 invalid";
+  }
+  return isValid;
+}
+
 } // namespace wsjcpp

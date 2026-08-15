@@ -31,3 +31,7 @@ install(
     RUNTIME DESTINATION
         /usr/bin
 )
+
+# enable testing functionality
+enable_testing()
+add_subdirectory(src/tests)
