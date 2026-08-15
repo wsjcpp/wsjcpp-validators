@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2020-2025 wsjcpp
+Copyright (c) 2020-2026 wsjcpp
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -28,18 +28,13 @@ SOFTWARE.
 #include <string>
 #include <vector>
 
-enum WsjcppValidatorType {
-  WSJCPP_VALIDATOR_STRING,
-  WSJCPP_VALIDATOR_INTEGER,
-  WSJCPP_VALIDATOR_JSON
-};
+enum WsjcppValidatorType { WSJCPP_VALIDATOR_STRING, WSJCPP_VALIDATOR_INTEGER, WSJCPP_VALIDATOR_JSON };
 
 class WsjcppValidators {
 public:
   static bool isValidDate(const std::string &sValue, std::string &sError);
   static bool isValidTimeH24(const std::string &sValue, std::string &sError);
-  static bool isValidURLProtocol(const std::string &sValue,
-                                 std::string &sError);
+  static bool isValidURLProtocol(const std::string &sValue, std::string &sError);
   static bool isValidDomainName(const std::string &sValue, std::string &sError);
   static bool isValidPort(const std::string &sValue, std::string &sError);
   static bool isValidPort(int nValue, std::string &sError);
@@ -77,8 +72,7 @@ private:
 
 class WsjcppValidatorStringRegexpBase : public WsjcppValidatorStringBase {
 public:
-  WsjcppValidatorStringRegexpBase(const std::string &typeName,
-                                  const std::string &sValidator);
+  WsjcppValidatorStringRegexpBase(const std::string &typeName, const std::string &sValidator);
   virtual bool isValid(const std::string &sValue, std::string &sError) override;
 
 private:
@@ -88,8 +82,7 @@ private:
 
 class WsjcppValidatorStringListBase : public WsjcppValidatorStringBase {
 public:
-  WsjcppValidatorStringListBase(const std::string &typeName,
-                                const std::vector<std::string> &vListValues);
+  WsjcppValidatorStringListBase(const std::string &typeName, const std::vector<std::string> &vListValues);
   virtual bool isValid(const std::string &sValue, std::string &sError) override;
 
 private:
