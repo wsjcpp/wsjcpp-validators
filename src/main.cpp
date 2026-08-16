@@ -49,25 +49,25 @@ int main(int argc, char *argv[]) {
   }
   std::string sArg1(argv[1]);
 
-  std::vector<WsjcppValidatorStringBase *> vValidators;
+  std::vector<wsjcpp::WsjcppValidatorStringBase *> vValidators;
   // vValidators.push_back(new WsjcppValidatorStringLength(5, 100));
   // vValidators.push_back(new WsjcppValidatorStringLength(1, 5));
-  vValidators.push_back(new WsjcppValidatorEmail());
-  vValidators.push_back(new WsjcppValidatorUUID());
-  vValidators.push_back(new WsjcppValidatorStringListBase("lang", {"en", "de", "ru"}));
-  vValidators.push_back(new WsjcppValidatorStringRegexpBase("testre", "^[a-zA-Z]+$"));
-  vValidators.push_back(new WsjcppValidatorJWT());
-  vValidators.push_back(new WsjcppValidatorDate());
-  vValidators.push_back(new WsjcppValidatorTimeH24());
-  vValidators.push_back(new WsjcppValidatorDateTime());
+  vValidators.push_back(new wsjcpp::WsjcppValidatorEmail());
+  vValidators.push_back(new wsjcpp::WsjcppValidatorUUID());
+  vValidators.push_back(new wsjcpp::WsjcppValidatorStringListBase("lang", {"en", "de", "ru"}));
+  vValidators.push_back(new wsjcpp::WsjcppValidatorStringRegexpBase("testre", "^[a-zA-Z]+$"));
+  vValidators.push_back(new wsjcpp::WsjcppValidatorJWT());
+  vValidators.push_back(new wsjcpp::WsjcppValidatorDate());
+  vValidators.push_back(new wsjcpp::WsjcppValidatorTimeH24());
+  vValidators.push_back(new wsjcpp::WsjcppValidatorDateTime());
   // vValidators.push_back(new WsjcppValidatorURL());
-  vValidators.push_back(new WsjcppValidatorBase64());
-  vValidators.push_back(new WsjcppValidatorNumber());
-  vValidators.push_back(new WsjcppValidatorHex());
+  vValidators.push_back(new wsjcpp::WsjcppValidatorBase64());
+  vValidators.push_back(new wsjcpp::WsjcppValidatorNumber());
+  vValidators.push_back(new wsjcpp::WsjcppValidatorHex());
 
   std::string sResult = "";
   for (int i = 0; i < vValidators.size(); i++) {
-    WsjcppValidatorStringBase *pValidator = vValidators[i];
+    wsjcpp::WsjcppValidatorStringBase *pValidator = vValidators[i];
     std::string sError;
     if (sResult.size() > 0) {
       sResult += ",";

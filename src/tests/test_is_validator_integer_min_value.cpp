@@ -24,7 +24,7 @@ int main() {
   tests.push_back(local(1001, true));
   tests.push_back(local(100100000, true));
 
-  WsjcppValidatorIntegerMinValue *pValidator = new WsjcppValidatorIntegerMinValue(1);
+  wsjcpp::WsjcppValidatorIntegerMinValue *pValidator = new wsjcpp::WsjcppValidatorIntegerMinValue(1);
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

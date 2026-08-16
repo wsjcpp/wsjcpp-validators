@@ -25,7 +25,7 @@ int main() {
   tests.push_back(local("", false));
   tests.push_back(local("+2020", false));
 
-  WsjcppValidatorNumber *pValidator = new WsjcppValidatorNumber();
+  wsjcpp::WsjcppValidatorNumber *pValidator = new wsjcpp::WsjcppValidatorNumber();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

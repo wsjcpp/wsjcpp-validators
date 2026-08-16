@@ -268,9 +268,15 @@ bool is_linux();
 bool is_windows();
 std::string padding_right(const std::string &source, char pad_char, size_t length);
 std::string padding_left(const std::string &source, char pad_char, size_t length);
-
 bool is_valid_ip4(const std::string &value, std::string &error);
 bool is_valid_ip6(const std::string &value, std::string &error);
+bool is_valid_date(const std::string &value, std::string &error);
+bool is_valid_time24(const std::string &value, std::string &error);
+bool is_valid_url_protocol(const std::string &value, std::string &error);
+bool is_valid_domain_name(const std::string &value, std::string &error);
+bool is_valid_port(const std::string &value, std::string &error);
+bool is_valid_port(int nValue, std::string &error);
+bool is_valid_base64(const std::string &value, std::string &error);
 
 } // namespace wsjcpp
 

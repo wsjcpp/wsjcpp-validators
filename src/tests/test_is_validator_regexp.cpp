@@ -20,7 +20,7 @@ int main() {
   tests.push_back(local("some", false));
   tests.push_back(local("ABCD", true));
 
-  WsjcppValidatorStringRegexpBase *pValidator = new WsjcppValidatorStringRegexpBase("simpleregexp", "^[A-Z]*$");
+  wsjcpp::WsjcppValidatorStringRegexpBase *pValidator = new wsjcpp::WsjcppValidatorStringRegexpBase("simpleregexp", "^[A-Z]*$");
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

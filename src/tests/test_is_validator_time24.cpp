@@ -28,7 +28,7 @@ int main() {
   tests.push_back(local("24:00:00", false));
   tests.push_back(local("25:90:00", false));
 
-  WsjcppValidatorTimeH24 *pValidator = new WsjcppValidatorTimeH24();
+  wsjcpp::WsjcppValidatorTimeH24 *pValidator = new wsjcpp::WsjcppValidatorTimeH24();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

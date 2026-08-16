@@ -1,6 +1,10 @@
 
 # wsjcpp-validators Changelog
 
+## [v0.2.0]
+
+- Moved part of methods to wsjcpp-core
+- Refactored names
 
 ## [v0.1.4]
 

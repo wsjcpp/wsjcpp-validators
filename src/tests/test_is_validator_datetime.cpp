@@ -27,7 +27,7 @@ int main() {
   tests.push_back(local("18a8-01-01T00:00:00", false));
   tests.push_back(local("1838-01-01T25:00:00", false));
 
-  WsjcppValidatorDateTime *pValidator = new WsjcppValidatorDateTime();
+  wsjcpp::WsjcppValidatorDateTime *pValidator = new wsjcpp::WsjcppValidatorDateTime();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

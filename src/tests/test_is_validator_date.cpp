@@ -29,7 +29,7 @@ int main() {
   tests.push_back(local("1898-15-01", false));
   tests.push_back(local("1898-01-32", false));
 
-  WsjcppValidatorDate *pValidator = new WsjcppValidatorDate();
+  wsjcpp::WsjcppValidatorDate *pValidator = new wsjcpp::WsjcppValidatorDate();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

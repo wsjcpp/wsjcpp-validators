@@ -24,7 +24,7 @@ int main() {
   tests.push_back(local("+/11", true));
   tests.push_back(local("%$", false));
 
-  WsjcppValidatorBase64 *pValidator = new WsjcppValidatorBase64();
+  wsjcpp::WsjcppValidatorBase64 *pValidator = new wsjcpp::WsjcppValidatorBase64();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

@@ -21,7 +21,7 @@ int main() {
   tests.push_back(local("00000000-0000-0000-1000-000000000001", true));
   tests.push_back(local("abcdef01-ABCD-EF23-1000-000000000001", true));
 
-  WsjcppValidatorUUID *pValidator = new WsjcppValidatorUUID();
+  wsjcpp::WsjcppValidatorUUID *pValidator = new wsjcpp::WsjcppValidatorUUID();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

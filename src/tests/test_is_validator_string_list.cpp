@@ -24,8 +24,8 @@ int main() {
   tests.push_back(local("some2", true));
   tests.push_back(local("some3", true));
 
-  WsjcppValidatorStringListBase *pValidator =
-      new WsjcppValidatorStringListBase("test", {"some1", "some2", "some3", "hello"});
+  wsjcpp::WsjcppValidatorStringListBase *pValidator =
+      new wsjcpp::WsjcppValidatorStringListBase("test", {"some1", "some2", "some3", "hello"});
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

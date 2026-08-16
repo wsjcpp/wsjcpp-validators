@@ -103,7 +103,7 @@ int main() {
   tests.push_back(local("http://www.foo.bar./", false));
   tests.push_back(local("http://.www.foo.bar./", false));
 
-  WsjcppValidatorURL *pValidator = new WsjcppValidatorURL();
+  wsjcpp::WsjcppValidatorURL *pValidator = new wsjcpp::WsjcppValidatorURL();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

@@ -21,7 +21,7 @@ int main() {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjJ9.tbDepxpstvGdW8TC3G8zg4B6rUYAOvfzdceoH48wgRQ",
       true));
 
-  WsjcppValidatorJWT *pValidator = new WsjcppValidatorJWT();
+  wsjcpp::WsjcppValidatorJWT *pValidator = new wsjcpp::WsjcppValidatorJWT();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

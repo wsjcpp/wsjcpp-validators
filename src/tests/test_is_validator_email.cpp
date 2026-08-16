@@ -24,7 +24,7 @@ int main() {
   tests.push_back(local("s_s-some@test.com", true));
   tests.push_back(local("s_s-some@test.c", false));
 
-  WsjcppValidatorEmail *pValidator = new WsjcppValidatorEmail();
+  wsjcpp::WsjcppValidatorEmail *pValidator = new wsjcpp::WsjcppValidatorEmail();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

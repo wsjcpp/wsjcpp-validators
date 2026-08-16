@@ -22,7 +22,7 @@ int main() {
   tests.push_back(local("abcdef0123456789ABCDEF", true));
   tests.push_back(local("0123J", false));
 
-  WsjcppValidatorHex *pValidator = new WsjcppValidatorHex();
+  wsjcpp::WsjcppValidatorHex *pValidator = new wsjcpp::WsjcppValidatorHex();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

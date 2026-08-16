@@ -23,7 +23,7 @@ int main() {
   tests.push_back(local(1001, false));
   tests.push_back(local(100100000, false));
 
-  WsjcppValidatorIntegerMaxValue *pValidator = new WsjcppValidatorIntegerMaxValue(1000);
+  wsjcpp::WsjcppValidatorIntegerMaxValue *pValidator = new wsjcpp::WsjcppValidatorIntegerMaxValue(1000);
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];

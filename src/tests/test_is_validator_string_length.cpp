@@ -24,7 +24,7 @@ int main() {
   tests.push_back(local("hellohello1", false));
   tests.push_back(local("hellohellossssssssssss1", false));
 
-  WsjcppValidatorStringLength *pValidator = new WsjcppValidatorStringLength(5, 10);
+  wsjcpp::WsjcppValidatorStringLength *pValidator = new wsjcpp::WsjcppValidatorStringLength(5, 10);
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
