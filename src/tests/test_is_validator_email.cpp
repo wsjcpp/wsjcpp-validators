@@ -24,12 +24,12 @@ int main() {
   tests.push_back(local("s_s-some@test.com", true));
   tests.push_back(local("s_s-some@test.c", false));
 
-  wsjcpp::WsjcppValidatorEmail *pValidator = new wsjcpp::WsjcppValidatorEmail();
+  wsjcpp::validator_email *pValidator = new wsjcpp::validator_email();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
     std::string error;
-    bool got = pValidator->isValid(t.value, error);
+    bool got = pValidator->is_valid(t.value, error);
     if (got != t.expected) {
       found_errors++;
       std::cerr << "Expected " << (t.expected ? "true" : "false") << ", but got " << (got ? "true" : "false") << " for "

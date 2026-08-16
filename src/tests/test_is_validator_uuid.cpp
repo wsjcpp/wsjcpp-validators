@@ -21,12 +21,12 @@ int main() {
   tests.push_back(local("00000000-0000-0000-1000-000000000001", true));
   tests.push_back(local("abcdef01-ABCD-EF23-1000-000000000001", true));
 
-  wsjcpp::WsjcppValidatorUUID *pValidator = new wsjcpp::WsjcppValidatorUUID();
+  wsjcpp::validator_uuid *pValidator = new wsjcpp::validator_uuid();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
     std::string error;
-    bool got = pValidator->isValid(t.value, error);
+    bool got = pValidator->is_valid(t.value, error);
     if (got != t.expected) {
       found_errors++;
       std::cerr << "Expected " << (t.expected ? "true" : "false") << ", but got " << (got ? "true" : "false") << " for "

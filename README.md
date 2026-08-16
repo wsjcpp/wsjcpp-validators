@@ -22,9 +22,9 @@ $ wsjcpp install "https://github.com/wsjcpp/wsjcpp-validators:master"
 
 ``` cpp
 
-WsjcppValidatorUUID *pValidatorUUID = new WsjcppValidatorUUID();
+validator_uuid *pValidatorUUID = new validator_uuid();
 std::string sError = "";
-if (!pValidatorUUID->isValid("abcdef01-ABCD-EF23-1000-000000000001", sError)) {
+if (!pValidatorUUID->is_valid("abcdef01-ABCD-EF23-1000-000000000001", sError)) {
     std::cout << sError << std::endl;
 }
 ```
@@ -36,14 +36,14 @@ Classes for data validation
 - `new WsjcppValidatorStringRegexpBase("testre", "^[a-zA-Z]+$")` - validate value by regular expression
 - `new WsjcppValidatorStringListBase("lang", {"en", "de", "ru"})` - validate value from a list
 - `new WsjcppValidatorEmail()` - validate format email
-- `new WsjcppValidatorUUID()` - validate format uuid
-- `new WsjcppValidatorStringLength(1,100)` - validate min length and max length
-- `new WsjcppValidatorJWT()` - validate format of JWT
+- `new validator_uuid()` - validate format uuid
+- `new validator_strlen(1,100)` - validate min length and max length
+- `new validator_jwt()` - validate format of JWT
 - `new WsjcppValidatorDate()` - validate format date like 'YYYY-MM-DD'
-- `new WsjcppValidatorTimeH24()` - validate format date like 'HH:mm:ss' (24 hours)
+- `new validator_time24()` - validate format date like 'HH:mm:ss' (24 hours)
 - `new WsjcppValidatorDateTime()` - validate format date like 'YYYY-MM-DD\THH:mm:ss'
 - `new WsjcppValidatorURL()` - validate format of url
-- `new WsjcppValidatorBase64()` - validate format of base64
+- `new validator_base64()` - validate format of base64
 - `new WsjcppValidatorNumber()` - validate format of number
 - `new WsjcppValidatorHex()` - validate hex value
 - `new WsjcppValidatorIntegerMinValue(1)` - validate integer min value
@@ -51,24 +51,24 @@ Classes for data validation
 
 ## Completed static functions
 
-- `WsjcppValidators::isValidDate(const std::string &sValue, std::string &sError)`
-- `WsjcppValidators::isValidTimeH24(const std::string &sValue, std::string &sError)`
-- `WsjcppValidators::isValidDomainName(const std::string &sValue, std::string &sError)`
-- `WsjcppValidators::isValidBase64(const std::string &sValue, std::string &sError)`
-- `WsjcppValidators::isValidIPv4(const std::string &sValue, std::string &sError)`
-- `WsjcppValidators::isValidIPv6(const std::string &sValue, std::string &sError)`
+- `WsjcppValidators::is_validDate(const std::string &sValue, std::string &sError)`
+- `WsjcppValidators::is_validTimeH24(const std::string &sValue, std::string &sError)`
+- `WsjcppValidators::is_validDomainName(const std::string &sValue, std::string &sError)`
+- `WsjcppValidators::is_validBase64(const std::string &sValue, std::string &sError)`
+- `WsjcppValidators::is_validIPv4(const std::string &sValue, std::string &sError)`
+- `WsjcppValidators::is_validIPv6(const std::string &sValue, std::string &sError)`
 
 ## Example for your implementations
 
 ``` cpp
-class WsjcppValidatorUUID : public WsjcppValidatorStringRegexpBase {
+class validator_uuid : public WsjcppValidatorStringRegexpBase {
     public:
-        WsjcppValidatorUUID() 
+        validator_uuid() 
             : WsjcppValidatorStringRegexpBase(
                 "uuid", // name
                 "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"
             ) {
-            TAG = "WsjcppValidatorUUID";
+            TAG = "validator_uuid";
         }
 };
 ```

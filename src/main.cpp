@@ -49,35 +49,35 @@ int main(int argc, char *argv[]) {
   }
   std::string sArg1(argv[1]);
 
-  std::vector<wsjcpp::WsjcppValidatorStringBase *> vValidators;
-  // vValidators.push_back(new WsjcppValidatorStringLength(5, 100));
-  // vValidators.push_back(new WsjcppValidatorStringLength(1, 5));
-  vValidators.push_back(new wsjcpp::WsjcppValidatorEmail());
-  vValidators.push_back(new wsjcpp::WsjcppValidatorUUID());
-  vValidators.push_back(new wsjcpp::WsjcppValidatorStringListBase("lang", {"en", "de", "ru"}));
-  vValidators.push_back(new wsjcpp::WsjcppValidatorStringRegexpBase("testre", "^[a-zA-Z]+$"));
-  vValidators.push_back(new wsjcpp::WsjcppValidatorJWT());
-  vValidators.push_back(new wsjcpp::WsjcppValidatorDate());
-  vValidators.push_back(new wsjcpp::WsjcppValidatorTimeH24());
-  vValidators.push_back(new wsjcpp::WsjcppValidatorDateTime());
-  // vValidators.push_back(new WsjcppValidatorURL());
-  vValidators.push_back(new wsjcpp::WsjcppValidatorBase64());
-  vValidators.push_back(new wsjcpp::WsjcppValidatorNumber());
-  vValidators.push_back(new wsjcpp::WsjcppValidatorHex());
+  std::vector<wsjcpp::validator<std::string> *> validators;
+  // validators.push_back(new validator_strlen(5, 100));
+  // validators.push_back(new validator_strlen(1, 5));
+  validators.push_back(new wsjcpp::validator_email());
+  validators.push_back(new wsjcpp::validator_uuid());
+  validators.push_back(new wsjcpp::validator_str_list("lang", {"en", "de", "ru"}));
+  validators.push_back(new wsjcpp::validator_regexp("testre", "^[a-zA-Z]+$"));
+  validators.push_back(new wsjcpp::validator_jwt());
+  // validators.push_back(new wsjcpp::validator_date());
+  validators.push_back(new wsjcpp::validator_time24());
+  validators.push_back(new wsjcpp::validator_datetime());
+  validators.push_back(new wsjcpp::validator_url());
+  validators.push_back(new wsjcpp::validator_base64());
+  validators.push_back(new wsjcpp::validator_int());
+  validators.push_back(new wsjcpp::validator_hex());
 
   std::string sResult = "";
-  for (int i = 0; i < vValidators.size(); i++) {
-    wsjcpp::WsjcppValidatorStringBase *pValidator = vValidators[i];
+  for (int i = 0; i < validators.size(); i++) {
+    wsjcpp::validator<std::string> *pValidator = validators[i];
     std::string sError;
     if (sResult.size() > 0) {
       sResult += ",";
     }
-    if (pValidator->isValid(sArg1, sError)) {
-      sResult += " +" + pValidator->getTypeName();
-      // WsjcppLog::ok(TAG, "ok -> [" + pValidator->getTypeName() + "]: '" + sArg1 + "'");
+    if (pValidator->is_valid(sArg1, sError)) {
+      sResult += " +" + pValidator->name();
+      // WsjcppLog::ok(TAG, "ok -> [" + pValidator->name() + "]: '" + sArg1 + "'");
     } else {
-      sResult += " -" + pValidator->getTypeName();
-      // WsjcppLog::err(TAG, "fail -> [" + pValidator->getTypeName() + "]: '" + sArg1 + "' - " + sError);
+      sResult += " -" + pValidator->name();
+      // WsjcppLog::err(TAG, "fail -> [" + pValidator->name() + "]: '" + sArg1 + "' - " + sError);
     }
   }
   std::cout << sResult << std::endl;

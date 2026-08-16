@@ -21,12 +21,12 @@ int main() {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjJ9.tbDepxpstvGdW8TC3G8zg4B6rUYAOvfzdceoH48wgRQ",
       true));
 
-  wsjcpp::WsjcppValidatorJWT *pValidator = new wsjcpp::WsjcppValidatorJWT();
+  wsjcpp::validator_jwt *pValidator = new wsjcpp::validator_jwt();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
     std::string error;
-    bool got = pValidator->isValid(t.value, error);
+    bool got = pValidator->is_valid(t.value, error);
     if (got != t.expected) {
       found_errors++;
       std::cerr << "Expected " << (t.expected ? "true" : "false") << ", but got " << (got ? "true" : "false") << " for "

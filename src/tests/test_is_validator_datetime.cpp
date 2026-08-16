@@ -27,12 +27,12 @@ int main() {
   tests.push_back(local("18a8-01-01T00:00:00", false));
   tests.push_back(local("1838-01-01T25:00:00", false));
 
-  wsjcpp::WsjcppValidatorDateTime *pValidator = new wsjcpp::WsjcppValidatorDateTime();
+  wsjcpp::validator_datetime *pValidator = new wsjcpp::validator_datetime();
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
     std::string error;
-    bool got = pValidator->isValid(t.value, error);
+    bool got = pValidator->is_valid(t.value, error);
     if (got != t.expected) {
       found_errors++;
       std::cerr << "Expected " << (t.expected ? "true" : "false") << ", but got " << (got ? "true" : "false") << " for "

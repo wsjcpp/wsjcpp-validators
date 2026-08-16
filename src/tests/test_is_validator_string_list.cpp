@@ -24,13 +24,13 @@ int main() {
   tests.push_back(local("some2", true));
   tests.push_back(local("some3", true));
 
-  wsjcpp::WsjcppValidatorStringListBase *pValidator =
-      new wsjcpp::WsjcppValidatorStringListBase("test", {"some1", "some2", "some3", "hello"});
+  wsjcpp::validator_str_list *pValidator =
+      new wsjcpp::validator_str_list("test", {"some1", "some2", "some3", "hello"});
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
     std::string error;
-    bool got = pValidator->isValid(t.value, error);
+    bool got = pValidator->is_valid(t.value, error);
     if (got != t.expected) {
       found_errors++;
       std::cerr << "Expected " << (t.expected ? "true" : "false") << ", but got " << (got ? "true" : "false") << " for "

@@ -24,12 +24,12 @@ int main() {
   tests.push_back(local("hellohello1", false));
   tests.push_back(local("hellohellossssssssssss1", false));
 
-  wsjcpp::WsjcppValidatorStringLength *pValidator = new wsjcpp::WsjcppValidatorStringLength(5, 10);
+  wsjcpp::validator_strlen *pValidator = new wsjcpp::validator_strlen(5, 10);
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
     std::string error;
-    bool got = pValidator->isValid(t.value, error);
+    bool got = pValidator->is_valid(t.value, error);
     if (got != t.expected) {
       found_errors++;
       std::cerr << "Expected " << (t.expected ? "true" : "false") << ", but got " << (got ? "true" : "false") << " for "

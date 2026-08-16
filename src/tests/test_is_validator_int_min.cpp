@@ -19,16 +19,17 @@ int main() {
   std::vector<local> tests;
   tests.push_back(local(1, true));
   tests.push_back(local(1000, true));
-  tests.push_back(local(-10, true));
-  tests.push_back(local(1001, false));
-  tests.push_back(local(100100000, false));
+  tests.push_back(local(-10, false));
+  tests.push_back(local(0, false));
+  tests.push_back(local(1001, true));
+  tests.push_back(local(100100000, true));
 
-  wsjcpp::WsjcppValidatorIntegerMaxValue *pValidator = new wsjcpp::WsjcppValidatorIntegerMaxValue(1000);
+  wsjcpp::validator_int_min *pValidator = new wsjcpp::validator_int_min(1);
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
     std::string error;
-    bool got = pValidator->isValid(t.value, error);
+    bool got = pValidator->is_valid(t.value, error);
     if (got != t.expected) {
       found_errors++;
       std::cerr << "Expected " << (t.expected ? "true" : "false") << ", but got " << (got ? "true" : "false") << " for "

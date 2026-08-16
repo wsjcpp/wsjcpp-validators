@@ -9,28 +9,26 @@ int main() {
   int found_errors = 0;
 
   struct local {
-    local(const std::string &value, bool expected)
+    local(int value, bool expected)
         : value(value), expected(expected) {
 
           };
-    std::string value;
+    int value;
     bool expected;
   };
   std::vector<local> tests;
-  tests.push_back(local("some", false));
-  tests.push_back(local("2020-01-01", false));
-  tests.push_back(local("2020", true));
-  tests.push_back(local("-2020", true));
-  tests.push_back(local("-", false));
-  tests.push_back(local("", false));
-  tests.push_back(local("+2020", false));
+  tests.push_back(local(1, true));
+  tests.push_back(local(1000, true));
+  tests.push_back(local(-10, true));
+  tests.push_back(local(1001, false));
+  tests.push_back(local(100100000, false));
 
-  wsjcpp::WsjcppValidatorNumber *pValidator = new wsjcpp::WsjcppValidatorNumber();
+  wsjcpp::validator_int_max *pValidator = new wsjcpp::validator_int_max(1000);
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
     std::string error;
-    bool got = pValidator->isValid(t.value, error);
+    bool got = pValidator->is_valid(t.value, error);
     if (got != t.expected) {
       found_errors++;
       std::cerr << "Expected " << (t.expected ? "true" : "false") << ", but got " << (got ? "true" : "false") << " for "

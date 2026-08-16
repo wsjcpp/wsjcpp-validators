@@ -20,12 +20,12 @@ int main() {
   tests.push_back(local("some", false));
   tests.push_back(local("ABCD", true));
 
-  wsjcpp::WsjcppValidatorStringRegexpBase *pValidator = new wsjcpp::WsjcppValidatorStringRegexpBase("simpleregexp", "^[A-Z]*$");
+  wsjcpp::validator_regexp *pValidator = new wsjcpp::validator_regexp("simpleregexp", "^[A-Z]*$");
 
   for (int i = 0; i < tests.size(); i++) {
     local t = tests[i];
     std::string error;
-    bool got = pValidator->isValid(t.value, error);
+    bool got = pValidator->is_valid(t.value, error);
     if (got != t.expected) {
       found_errors++;
       std::cerr << "Expected " << (t.expected ? "true" : "false") << ", but got " << (got ? "true" : "false") << " for "
